@@ -12,3 +12,248 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+/// User model stores basic user information and credentials.
+model User {
+  userId      BigInt   @id @default(autoincrement())
+  dataCriacao DateTime @default(now())
+  dataUpdate  DateTime @updatedAt
+  nome        String   @db.VarChar(255)
+  email       String   @unique @db.VarChar(255)
+  cpf         String?  @db.VarChar(11)
+  cnpj        String?  @db.VarChar(14)
+  senha       String   @db.VarChar(255)
+  role        String   @default("user")
+
+  // Relations
+  saldos     Saldo[]
+  cobrancas  Cobranca[]
+  pagamentos Pagamento[]
+  contratos  Contrato[]
+}
+
+/// Saldo model keeps track of remaining credits for each user-package combination.
+model Saldo {
+  saldoId     BigInt   @id @default(autoincrement())
+  dataCriacao DateTime @default(now())
+  dataUpdate  DateTime @updatedAt
+  userId      BigInt
+  pacoteId    BigInt
+  saldo       Float
+
+  // Relations
+  user   User   @relation(fields: [userId], references: [userId])
+  pacote Pacote @relation(fields: [pacoteId], references: [pacoteId])
+
+  @@unique([userId, pacoteId])
+  @@index([userId])
+  @@index([pacoteId])
+}
+
+/// Pacote model defines the various packages available in the system.
+model Pacote {
+  pacoteId    BigInt   @id @default(autoincrement())
+  dataCriacao DateTime @default(now())
+  dataUpdate  DateTime @updatedAt
+  nome        String   @db.VarChar(255)
+  descricao   String   @db.VarChar(255)
+  valor       Float
+  ativo       Boolean
+
+  // Relations
+  saldos    Saldo[]
+  cobrancas Cobranca[]
+  contratos Contrato[]
+}
+
+/// Cobranca model logs each billing transaction with status, method, and amount details.
+model Cobranca {
+  cobrancaId  BigInt      @id @default(autoincrement())
+  dataCriacao DateTime    @default(now())
+  dataUpdate  DateTime    @updatedAt
+  userId      BigInt
+  pacoteId    BigInt
+  dataPagto   DateTime?
+  metodoPagto MetodoPagto
+  status      Status
+  valor       Float
+  saldo       Float
+
+  // Relations
+  user       User        @relation(fields: [userId], references: [userId])
+  pacote     Pacote      @relation(fields: [pacoteId], references: [pacoteId])
+  pagamentos Pagamento[]
+
+  @@index([userId])
+  @@index([pacoteId])
+}
+
+/// Pagamento model captures each payment attempt with status, response code, and amount.
+model Pagamento {
+  pagamentoId          BigInt      @id @default(autoincrement())
+  dataCriacao          DateTime    @default(now())
+  dataUpdate           DateTime    @updatedAt
+  userId               BigInt
+  cobrancaId           BigInt
+  valor                Float
+  dataPagto            DateTime
+  metodoPagto          MetodoPagto
+  providerTransId      String
+  providerResponseCode String
+  status               Status
+
+  // Relations
+  user     User     @relation(fields: [userId], references: [userId])
+  cobranca Cobranca @relation(fields: [cobrancaId], references: [cobrancaId])
+
+  @@index([userId])
+  @@index([cobrancaId])
+}
+
+/// Contrato model manages recurring contracts with package, user, plan type, and renewal settings.
+model Contrato {
+  contratoId   BigInt    @id @default(autoincrement())
+  dataCriacao  DateTime  @default(now())
+  dataUpdate   DateTime  @updatedAt
+  userId       BigInt
+  pacoteId     BigInt
+  tipoPlano    String
+  saldoCiclo   Float
+  dataInicio   DateTime
+  dataFim      DateTime?
+  dataCobranca DateTime
+  cobrancaAuto Boolean
+  status       Status
+
+  // Relations
+  user   User   @relation(fields: [userId], references: [userId])
+  pacote Pacote @relation(fields: [pacoteId], references: [pacoteId])
+
+  @@index([userId])
+  @@index([pacoteId])
+}
+
+/// Enum for status (used in Cobranca, Pagamento, Contrato)
+enum Status {
+  concluida
+  pendente
+  falha
+  cancelamento
+}
+
+/// Enum for payment method (used in Cobranca, Pagamento)
+enum MetodoPagto {
+  credito
+  debito
+  transferencia
+  boleto
+  pix
+}
+
+enum Role {
+  user
+  admin
+}
+
+model cnae {
+  cnaeId      BigInt   @id @default(autoincrement())
+  dataCriacao DateTime @default(now())
+  codigo      String   @db.VarChar(20)
+  descricao   String   @db.VarChar(500)
+}
+
+model empresas {
+  empresaId                 BigInt   @id @default(autoincrement())
+  dataCriacao               DateTime @default(now())
+  cnpjBasico                String?  @db.VarChar(8)
+  razaoSocial               String?  @db.VarChar(255)
+  naturezaJuridica          String?  @db.VarChar(255)
+  qualificacaoResponsavel   String?  @db.VarChar(255)
+  capitalSocial             String?  @db.VarChar(30)
+  porteEmpresa              Int?
+  enteFederativoResponsavel String?  @db.VarChar(255)
+}
+
+model estabelecimentos {
+  idestabelecimento         BigInt   @id @default(autoincrement())
+  dataCriacao               DateTime @default(now())
+  cnpjBasico                String?  @db.VarChar(8)
+  cnpjOrdem                 String?  @db.VarChar(4)
+  cnpjDv                    String?  @db.VarChar(2)
+  identificadorMatrizFilial Int?
+  nomeFantasia              String?  @db.VarChar(255)
+  situacaoCadastral         Int
+  dataSituacaoCadastral     String?  @db.VarChar(40)
+  motivoSituacaoCadastral   Int?
+  nomeCidadeExterior        String?  @db.VarChar(255)
+  pais                      Int?
+  dataInicioAtividade       String?  @db.VarChar(40)
+  cnaeFiscalPrincipal       String?  @db.VarChar(255)
+  cnaeFiscalSecundaria      String?  @db.VarChar(255)
+  tipoLogradouro            String?  @db.VarChar(255)
+  logradouro                String?  @db.VarChar(255)
+  numero                    String?  @db.VarChar(255)
+  complemento               String?  @db.VarChar(255)
+  bairro                    String?  @db.VarChar(255)
+  cep                       String?  @db.VarChar(20)
+  uf                        String?  @db.VarChar(2)
+  municipio                 String?  @db.VarChar(255)
+  ddd1                      String?  @db.VarChar(4)
+  telefone1                 String?  @db.VarChar(20)
+  ddd2                      String?  @db.VarChar(4)
+  telefone2                 String?  @db.VarChar(20)
+  dddFax                    String?  @db.VarChar(4)
+  fax                       String?  @db.VarChar(20)
+  correioEletronico         String?  @db.VarChar(255)
+  situacaoEspecial          String?  @db.VarChar(255)
+  dataSituacaoEspecial      String?  @db.VarChar(40)
+}
+
+model simples {
+  simplesId             BigInt   @id @default(autoincrement())
+  dataCriacao           DateTime @default(now())
+  cnpjBasico            String?  @db.Char(8)
+  opcaoPeloSimples      String?  @db.Char(1)
+  dataOpcaoPeloSimples  String?  @db.VarChar(40)
+  dataExclusaoDoSimples String?  @db.VarChar(40)
+  opcaoPeloMei          String?  @db.VarChar(3)
+  dataOpcaoPeloMei      String?  @db.VarChar(40)
+  dataExclusaoDoMei     String?  @db.VarChar(40)
+}
+
+model socios {
+  socioId                   BigInt   @id @default(autoincrement())
+  dataCriacao               DateTime @default(now())
+  cnpjBasico                String?  @db.Char(8)
+  identificadorSocio        Int?
+  nomeSocio                 String?  @db.VarChar(255)
+  cnpjCpfSocio              String?  @db.VarChar(14)
+  qualificacaoSocio         Int?
+  dataEntradaSociedade      String?  @db.VarChar(40)
+  pais                      Int?
+  representanteLegal        String?  @db.VarChar(11)
+  nomeRepresentante         String?  @db.VarChar(255)
+  qualificacaoRepresentante Int?
+  faixaEtaria               Int?
+}
+
+model municipios {
+  municipioId BigInt   @id @default(autoincrement())
+  dataCriacao DateTime @default(now())
+  codigo      String?  @db.VarChar(10)
+  descricao   String?  @db.VarChar(255)
+}
+
+model naturezas {
+  naturezaId  BigInt   @id @default(autoincrement())
+  dataCriacao DateTime @default(now())
+  codigo      String?  @db.VarChar(10)
+  descricao   String?  @db.VarChar(255)
+}
+
+model situacaoCadastral {
+  situacaoId  BigInt   @id @default(autoincrement())
+  dataCriacao DateTime @default(now())
+  codigo      String?  @db.VarChar(10)
+  descricao   String?  @db.VarChar(255)
+}
