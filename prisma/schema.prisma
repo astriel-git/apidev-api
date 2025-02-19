@@ -21,7 +21,7 @@ model user {
   nome           String   @db.VarChar(255)
   email          String   @unique @db.VarChar(255)
   datanascimento DateTime
-  cpf            String   @db.VarChar(11)
+  cpf            String   @unique @db.VarChar(11)
   cnpj           String?  @db.VarChar(14)
   razaosocial    String?  @db.VarChar(255)
   senha          String   @db.VarChar(255)

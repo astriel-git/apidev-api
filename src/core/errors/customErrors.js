@@ -1,10 +1,8 @@
-// src/errors/customErrors.js
-
 /**
  * Base class for custom errors.
  * @extends Error
  */
-class BaseError extends Error {
+export class BaseError extends Error {
   /**
    * Creates a new BaseError instance.
    * @param {string} message - The error message.
@@ -29,6 +27,18 @@ export class BadRequestError extends BaseError {
    */
   constructor (message = 'Sintaxe invalida') {
     super(message, 400)
+  }
+}
+
+// src/errors/customErrors.js
+export class ConstraintError extends BaseError {
+  /**
+   * Creates a new ConstraintError instance.
+   * @param {string} uniqueConstraint - Additional dynamic information (e.g., unique constrait fields).
+   * @param {string} [message]
+   */
+  constructor (uniqueConstraint, message = 'Conflito devido ao uso de chave única já cadastrada') {
+    super(`${message}: (${uniqueConstraint})`, 500)
   }
 }
 

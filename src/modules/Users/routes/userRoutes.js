@@ -9,16 +9,16 @@ router.post('/login', async (req, res, next) => {
     const { token, login } = await loginUser(req.body)
     res.status(200).json({ token, user: login })
   } catch (error) {
-    next(error) // Pass error to the error handling middleware
+    next(error)
   }
 })
 
 router.post('/register', async (req, res, next) => {
   try {
     const newUser = await registerUser(req.body)
-    res.status(201).json({ user: newUser })
+    res.status(201).json({ message: 'Usuário cadastrado com sucesso', user: newUser })
   } catch (error) {
-    next(error) // Pass error to the error handling middleware
+    next(error)
   }
 })
 

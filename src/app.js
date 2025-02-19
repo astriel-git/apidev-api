@@ -4,7 +4,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import whitelist from './config/whitelist.js'
 import routes from './routes/index.js'
-import errorHandler from './errors/errorHandler.js'
+import errorHandler from './core/errors/errorHandler.js'
 import { errorMiddleware } from './core/errors/errorMiddleware.js' // Ensure this path is correct
 
 import './core/extensions/bigintExtension.js'

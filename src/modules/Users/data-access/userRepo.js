@@ -1,29 +1,47 @@
+// src/modules/Users/data-access/userRepo.js
 import prisma from '../../../config/prismaClient.js'
+import { PrismaClientError } from '../../../core/errors/customErrors.js'
+import { Prisma } from '@prisma/client'
 import { createToken } from '../../../core/auth/jwt.js'
 
 export const user = {
-  /** @param {import('express').Request}  */
+  /**
+   * Attempts to find a user by credentials.
+   * @param {Object} dados - Login data.
+   */
   async login (dados) {
-    const login = await prisma.user.findUnique({
-      select: {
-        userId: true,
-        role: true
-      },
-      where: {
-        email: dados.email,
-        cpf: dados.cpf,
-        cnpj: dados.cnpj,
-        senha: dados.senha
+    try {
+      const login = await prisma.user.findUnique({
+        select: {
+          userId: true,
+          role: true,
+          nome: true,
+          email: true
+        },
+        where: {
+          email: dados.email,
+          cpf: dados.cpf,
+          senha: dados.senha
+        }
+      })
+      const token = createToken(login)
+      return { token, login }
+    } catch (error) {
+      // If the error comes from Prisma, wrap it in our custom error
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new PrismaClientError(error)
       }
-    })
-
-    const token = createToken(login)
-    return { token, login }
+      throw error
+    }
   },
 
+  /**
+   * Registers a new user.
+   * @param {Object} dados - Registration data.
+   */
   async register (dados) {
     try {
-      const newuser = await prisma.user.create({
+      const newUser = await prisma.user.create({
         data: {
           nome: dados.nome,
           email: dados.email,
@@ -34,12 +52,13 @@ export const user = {
           razaosocial: dados?.razaosocial
         }
       })
-
-      return newuser
+      return newUser
     } catch (error) {
-      console.error('Erro ao cadastrar usuário:', error)
+      // If the error comes from Prisma, wrap it in our custom error
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new PrismaClientError(error)
+      }
       throw error
     }
   }
-
 }

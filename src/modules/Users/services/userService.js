@@ -1,6 +1,6 @@
 // src/modules/Users/services/userService.js
 import { user } from '../data-access/userRepo.js'
-import { UnauthorizedError, BadRequestError } from '../../../core/errors/customErrors.js'
+import { UnauthorizedError, BadRequestError, ConstraintError } from '../../../core/errors/customErrors.js'
 
 export const loginUser = async (dados) => {
   if (!dados.email || !dados.senha) {
@@ -21,10 +21,18 @@ export const registerUser = async (dados) => {
     throw new BadRequestError('Name, email, and senha are required.')
   }
 
-  const newUser = await user.register(dados)
-  if (!newUser) {
-    throw new Error('User could not be registered.')
+  try {
+    const newUser = await user.register(dados)
+    if (!newUser) {
+      throw new Error('User could not be registered.')
+    }
+    return newUser
+  } catch (error) {
+    // Check if the error is a PrismaClientError and has a unique constraint code
+    if (error.details && error.details.code === 'P2002') {
+      const uniqueConstraint = error.details.meta.target
+      throw new ConstraintError(uniqueConstraint)
+    }
+    throw error
   }
-
-  return newUser
 }

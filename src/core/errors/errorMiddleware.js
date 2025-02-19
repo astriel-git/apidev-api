@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client'
  */
 export async function errorMiddleware (err, req, res, next) {
   console.error('Error caught in middleware:', err)
-  logger.error(err)
+  logger.logError(err)
 
   if (err instanceof BaseError) {
     return res.status(err.statusCode).json({
