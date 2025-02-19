@@ -29,7 +29,9 @@ export const user = {
           email: dados.email,
           cpf: dados.cpf,
           cnpj: dados?.cnpj,
-          senha: dados.senha
+          senha: dados.senha,
+          datanascimento: dados.datanascimento,
+          razaosocial: dados?.razaosocial
         }
       })
 
