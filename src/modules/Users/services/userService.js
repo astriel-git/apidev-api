@@ -1,6 +1,6 @@
 // src/modules/Users/services/userService.js
 import { user } from '../data-access/userRepo.js'
-import { UnauthorizedError, BadRequestError } from '../../../core/errors/index.js'
+import { UnauthorizedError, BadRequestError } from '../../../core/errors/customErrors.js'
 
 export const loginUser = async (dados) => {
   if (!dados.email || !dados.senha) {

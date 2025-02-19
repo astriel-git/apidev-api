@@ -324,7 +324,7 @@ export class InternalServerError extends BaseError {
     })
   }
 }
-"@ | Out-File -FilePath "src/errors/index.js"
+"@ | Out-File -FilePath "src/errors/customErrors.js"
 
 # src/http/controllers/exemplo.js
 @"

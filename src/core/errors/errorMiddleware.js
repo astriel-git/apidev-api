@@ -1,6 +1,7 @@
 // src/errors/errorMiddleware.js
-import errorHandler from './errorHandler.js'
-import { BaseError, InternalServerError } from './index.js' // Import InternalServerError
+import { BaseError } from './customErrors.js'
+import logger from '../utils/logger.js'
+import { Prisma } from '@prisma/client'
 
 /**
  * Express error-handling middleware
@@ -8,17 +9,29 @@ import { BaseError, InternalServerError } from './index.js' // Import InternalSe
  */
 export async function errorMiddleware (err, req, res, next) {
   console.error('Error caught in middleware:', err)
+  logger.error(err)
 
-  try {
-    if (err instanceof BaseError) {
-      // Handle custom errors
-      await errorHandler.handleError(err, res)
-    } else {
-      // Handle other errors as internal server errors
-      await errorHandler.handleError(new InternalServerError(), res)
-    }
-  } catch (handlingError) {
-    console.error('Error while handling error:', handlingError)
-    res.status(500).send({ message: 'An unexpected error occurred' })
+  if (err instanceof BaseError) {
+    return res.status(err.statusCode).json({
+      status: 'error',
+      message: err.message,
+      ...(err.errors ? { errors: err.errors } : {})
+    })
   }
+
+  // Handle Prisma Client Errors
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    return res.status(500).json({
+      status: 'error',
+      message: 'Database request error',
+      code: err.code,
+      details: err.meta || {}
+    })
+  }
+
+  // Default 500 Server Error
+  return res.status(500).json({
+    status: 'error',
+    message: 'Internal Server Error'
+  })
 }

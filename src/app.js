@@ -4,6 +4,8 @@ import cors from 'cors'
 import helmet from 'helmet'
 import whitelist from './config/whitelist.js'
 import routes from './routes/index.js'
+import errorHandler from './errors/errorHandler.js'
+import { errorMiddleware } from './core/errors/errorMiddleware.js' // Ensure this path is correct
 
 import './core/extensions/bigintExtension.js'
 
@@ -25,7 +27,18 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use(helmet())
 
-// Use the consolidated routes under a base path like `/api`
 app.use('/', routes)
+
+// Global error handling for non-Express errors
+process.on('uncaughtException', (error) => {
+  errorHandler.handleError(error)
+})
+
+process.on('unhandledRejection', (reason) => {
+  errorHandler.handleError(reason)
+})
+
+// Express error-handling middleware (should be last)
+app.use(errorMiddleware)
 
 export default app

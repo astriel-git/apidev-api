@@ -6,7 +6,7 @@ const sendMonitoringData = async (error) => {
     message: error.message,
     isCritical: error.isCritical || false
   })
-  // You can add more logic later to send this data to a real service
+  // Add logic later to send this data to a real service
 }
 
-module.exports = sendMonitoringData
+export default sendMonitoringData
