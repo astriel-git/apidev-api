@@ -10,10 +10,11 @@ export const user = {
    * @param {Object} dados - Login data.
    */
   async login (dados) {
+    console.log(dados)
     try {
       const login = await prisma.user.findUnique({
         select: {
-          userId: true,
+          userid: true,
           role: true,
           nome: true,
           email: true

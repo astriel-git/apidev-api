@@ -16,6 +16,16 @@ export const loginUser = async (dados) => {
   return result
 }
 
+export const logoutUser = async () => {
+  const result = await user.logout()
+
+  if (!result.login) {
+    throw new UnauthorizedError('Invalid credentials.')
+  }
+
+  return result
+}
+
 export const registerUser = async (dados) => {
   if (!dados.nome || !dados.email || !dados.senha) {
     throw new BadRequestError('Name, email, and senha are required.')
@@ -28,7 +38,6 @@ export const registerUser = async (dados) => {
     }
     return newUser
   } catch (error) {
-    // Check if the error is a PrismaClientError and has a unique constraint code
     if (error.details && error.details.code === 'P2002') {
       const uniqueConstraint = error.details.meta.target
       throw new ConstraintError(uniqueConstraint)

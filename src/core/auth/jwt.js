@@ -1,29 +1,33 @@
+// src/core/auth/jwt.js
 import pkg from 'jsonwebtoken'
 const { sign } = pkg
 
-// mude o valor abaixo para uma chave secreta mais segura
-export const secretKey = 'L1337-P07!#HK.'
+// Use an environment variable for the secret in production
+export const secretKey = process.env.SECRET_KEY || 'L1337-P07!#HK.'
 
 /**
- *  essa função cria um token para o usuário utilizando o id do usuário apenas modifique para seu uso
- *  @param {Object} user
- *  @param {number} user.iduser
+ * Creates a JWT token for the user.
+ * @param {Object} user - The user object.
+ * @param {number} user.userId - The user's ID.
+ * @param {string} user.nome - The user's name.
+ * @param {string} user.email - The user's email.
+ * @param {string} user.role - The user's role.
+ * @returns {Object} An object containing the token.
  */
 export function createToken (user) {
   if (!user) {
-    throw new Error('usuario não informado')
+    throw new Error('User not provided')
   }
 
-  // abaixo é um exemplo de payload sub por padrão recebe o id do usuario
-  // você pode adicionar mais informações ao payload
-  /** @type {import('jsonwebtoken').JwtPayload} */
   const payload = {
-    sub: user.userId
+    sub: user.userId,
+    name: user.nome,
+    email: user.email,
+    role: user.role
   }
 
-  const token = sign(payload, secretKey, { expiresIn: '10h' })
+  // Sign the token with a 2-hour expiration
+  const token = sign(payload, secretKey, { expiresIn: '2h' })
 
-  return {
-    token
-  }
+  return { token }
 }

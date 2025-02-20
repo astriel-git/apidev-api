@@ -30,18 +30,6 @@ export class BadRequestError extends BaseError {
   }
 }
 
-// src/errors/customErrors.js
-export class ConstraintError extends BaseError {
-  /**
-   * Creates a new ConstraintError instance.
-   * @param {string} uniqueConstraint - Additional dynamic information (e.g., unique constrait fields).
-   * @param {string} [message]
-   */
-  constructor (uniqueConstraint, message = 'Conflito devido ao uso de chave única já cadastrada') {
-    super(`${message}: (${uniqueConstraint})`, 500)
-  }
-}
-
 /**
  * Error for unauthorized access.
  * @extends BaseError
@@ -123,6 +111,21 @@ export class InternalServerError extends BaseError {
    */
   constructor (message = 'Um erro interno não esperado aconteceu.') {
     super(message, 500)
+  }
+}
+
+/**
+ * Error for unique contraint vaiolations.
+ * @extends BaseError
+ */
+export class ConstraintError extends BaseError {
+  /**
+   * Creates a new ConstraintError instance. Used for unique constraint violations, during new user registration.
+   * @param {string} uniqueConstraint
+   * @param {string} [message]
+   */
+  constructor (uniqueConstraint, message = 'Chave única já cadastrada') {
+    super(`${message}: (${uniqueConstraint})`, 500)
   }
 }
 
