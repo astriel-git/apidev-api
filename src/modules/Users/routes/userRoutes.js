@@ -36,7 +36,7 @@ router.post('/reset', async (req, res) => {
   res.json(result)
 })
 
-router.post('/validate-reset', async (req, res) => {
+router.get('/validate-reset', async (req, res) => {
   const result = await validateResetPassword(req.body)
   res.json(result)
 })
