@@ -1,9 +1,10 @@
 // src/modules/Users/data-access/userRepo.js
 import prisma from '../../../config/prismaClient.js'
 import bcrypt from 'bcrypt'
-import { PrismaClientError } from '../../../core/errors/customErrors.js'
+import { PrismaClientError, UnauthorizedError } from '../../../core/errors/customErrors.js'
 import { Prisma } from '@prisma/client'
 import { createToken } from '../../../core/auth/jwt.js'
+import crypto from 'crypto'
 
 const SALT_ROUNDS = 10
 
@@ -76,5 +77,97 @@ export const user = {
       }
       throw error
     }
+  },
+
+  /**
+ * Generates a password recovery token, stores it in the recovery table with an expiration date,
+ * and returns the token.
+ * @param {Object} dados - Object containing the email and/or CPF of the user requesting a password recovery.
+ */
+  async recoverPassword (dados) {
+    console.log('Recovering password for:', dados)
+    try {
+    // Find the user by email or CPF.
+      const userFound = await prisma.user.findFirst({
+        where: {
+          OR: [
+            { email: dados.email },
+            { cpf: dados.cpf }
+          ]
+        }
+      })
+      if (!userFound) {
+        throw new Error('User not found.')
+      }
+
+      // Generate a secure random token (20 bytes -> 40 hex characters)
+      const recoveryToken = crypto.randomBytes(20).toString('hex')
+      // Set token to expire in 1 hour
+      const tokenExpires = new Date(Date.now() + 3600000) // 1 hour in milliseconds
+
+      // Create a new recovery record in the 'recuperacao' table
+      await prisma.recuperacao.create({
+        data: {
+          token: recoveryToken,
+          expiracao: tokenExpires,
+          user: { connect: { userid: userFound.userid } }
+        }
+      })
+
+      // For testing purposes, log the token (replace with email sending logic later)
+      console.log(`Recovery token for ${dados.email || dados.cpf}: ${recoveryToken}`)
+
+      // Return the token so that the service layer can use it if needed.
+      return { recoveryToken }
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new PrismaClientError(error)
+      }
+      throw error
+    }
+  },
+
+  /**
+   * Resets the user's password given a valid recovery token and new password.
+   * @param {string} token - The recovery token sent to the user's email.
+   * @param {string} newPassword - The new password to be set.
+   */
+  async resetPassword (token, newPassword) {
+    try {
+      // Find the recovery record by token
+      const recoveryRecord = await prisma.recuperacao.findUnique({
+        where: { token }
+      })
+      if (!recoveryRecord) {
+        throw new UnauthorizedError('Invalid or expired token.')
+      }
+
+      // Check if token has expired
+      if (new Date() > recoveryRecord.expiracao) {
+        throw new UnauthorizedError('Recovery token has expired.')
+      }
+
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS)
+
+      // Update the user's password
+      await prisma.user.update({
+        where: { userid: recoveryRecord.userid },
+        data: { senha: hashedPassword }
+      })
+
+      // Optionally, delete the recovery record to invalidate the token
+      await prisma.recuperacao.delete({
+        where: { id: recoveryRecord.id }
+      })
+
+      return { message: 'Password reset successfully.' }
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new PrismaClientError(error)
+      }
+      throw error
+    }
   }
+
 }

@@ -28,10 +28,11 @@ model user {
   role           String   @default("user")
 
   // Relations
-  saldos     saldo[]
-  cobrancas  cobranca[]
-  pagamentos pagamento[]
-  contratos  contrato[]
+  saldos       saldo[]
+  cobrancas    cobranca[]
+  pagamentos   pagamento[]
+  contratos    contrato[]
+  recuperacoes recuperacao[]
 }
 
 /// saldo model keeps track of remaining credits for each user-package combination.
@@ -133,6 +134,16 @@ model contrato {
 
   @@index([userid])
   @@index([pacoteid])
+}
+
+model recuperacao {
+  id          BigInt   @id @default(autoincrement())
+  datacriacao DateTime @default(now())
+  token       String   @db.VarChar(255)
+  expiracao   DateTime
+
+  user   user   @relation(fields: [userid], references: [userid])
+  userid BigInt
 }
 
 /// enum for status (used in cobranca, pagamento, contrato)

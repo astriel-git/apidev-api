@@ -1,6 +1,6 @@
 // src/modules/Users/routes/userRoutes.js
 import { Router } from 'express'
-import { loginUser, registerUser } from '../../Users/services/userService.js'
+import { loginUser, registerUser, recoverPassword, resetPassword } from '../../Users/services/userService.js'
 
 const router = Router()
 
@@ -20,6 +20,20 @@ router.post('/register', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+})
+
+router.post('/recuperar', async (req, res, next) => {
+  try {
+    const result = await recoverPassword(req.body)
+    res.status(201).json({ message: 'Email de recuperação enviado com sucesso', result })
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/reset', async (req, res) => {
+  const result = await resetPassword(req.body)
+  res.json(result)
 })
 
 export default router

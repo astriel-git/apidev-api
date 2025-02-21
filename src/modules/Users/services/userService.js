@@ -46,3 +46,31 @@ export const registerUser = async (dados) => {
     throw error
   }
 }
+
+export const recoverPassword = async (dados) => {
+  if (!dados.email || !dados.cpf) {
+    throw new BadRequestError('Email and CPF are required.')
+  }
+
+  try {
+    // This will find the user, generate a token, update the DB record, and log the token.
+    const result = await user.recoverPassword(dados)
+    console.log(`Simulated email: Sending recovery token to ${dados.email}`)
+    console.log(`Recovery Token: ${result.recoveryToken}`)
+    return { message: 'Recovery email sent successfully.' }
+  } catch (error) {
+    // Optionally transform the error if the user is not found.
+    if (error.message === 'User not found.') {
+      throw new UnauthorizedError('User not found.')
+    }
+    throw error
+  }
+}
+
+export const resetPassword = async (dados) => {
+  if (!dados.token || !dados.newPassword) {
+    throw new BadRequestError('Token and new password are required.')
+  }
+  // Call the repository function to perform the reset
+  return await user.resetPassword(dados.token, dados.newPassword)
+}
