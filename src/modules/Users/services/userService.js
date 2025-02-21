@@ -3,7 +3,8 @@ import { user } from '../data-access/userRepo.js'
 import { UnauthorizedError, BadRequestError, ConstraintError } from '../../../core/errors/customErrors.js'
 
 export const loginUser = async (dados) => {
-  if (!dados.email || !dados.senha) {
+  console.log(dados)
+  if (!dados.identificador || !dados.senha) {
     throw new BadRequestError('Email and senha are required.')
   }
 

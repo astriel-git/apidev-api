@@ -1,8 +1,11 @@
 // src/modules/Users/data-access/userRepo.js
 import prisma from '../../../config/prismaClient.js'
+import bcrypt from 'bcrypt'
 import { PrismaClientError } from '../../../core/errors/customErrors.js'
 import { Prisma } from '@prisma/client'
 import { createToken } from '../../../core/auth/jwt.js'
+
+const SALT_ROUNDS = 10
 
 export const user = {
   /**
@@ -10,25 +13,35 @@ export const user = {
    * @param {Object} dados - Login data.
    */
   async login (dados) {
-    console.log(dados)
     try {
-      const login = await prisma.user.findUnique({
+      const identifier = dados.identificador // Changed here
+      const login = await prisma.user.findFirst({
         select: {
           userid: true,
           role: true,
           nome: true,
-          email: true
+          email: true,
+          senha: true,
+          cpf: true
         },
         where: {
-          email: dados.email,
-          cpf: dados.cpf,
-          senha: dados.senha
+          OR: [
+            { email: identifier },
+            { cpf: identifier }
+          ]
         }
       })
-      const token = createToken(login)
-      return { token, login }
+
+      // If no user is found or password doesn't match, handle error
+      if (!login || !(await bcrypt.compare(dados.senha, login.senha))) {
+        throw new Error('Invalid credentials')
+      }
+
+      // Remove the password before creating token, if needed
+      const { senha, ...userWithoutPassword } = login
+      const token = createToken(userWithoutPassword)
+      return { token, login: userWithoutPassword }
     } catch (error) {
-      // If the error comes from Prisma, wrap it in our custom error
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error)
       }
@@ -42,13 +55,15 @@ export const user = {
    */
   async register (dados) {
     try {
+      const hashedPassword = await bcrypt.hash(dados.senha, SALT_ROUNDS)
+
       const newUser = await prisma.user.create({
         data: {
           nome: dados.nome,
           email: dados.email,
           cpf: dados.cpf,
           cnpj: dados?.cnpj,
-          senha: dados.senha,
+          senha: hashedPassword,
           datanascimento: dados.datanascimento,
           razaosocial: dados?.razaosocial
         }
