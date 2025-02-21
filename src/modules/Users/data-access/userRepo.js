@@ -80,14 +80,14 @@ export const user = {
   },
 
   /**
- * Generates a password recovery token, stores it in the recovery table with an expiration date,
- * and returns the token.
- * @param {Object} dados - Object containing the email and/or CPF of the user requesting a password recovery.
- */
+   * Generates a password recovery token, stores it in the recovery table with an expiration date,
+   * builds a reset link, and returns the token and link.
+   * @param {Object} dados - Object containing the email and/or CPF of the user requesting a password recovery.
+   */
   async recoverPassword (dados) {
     console.log('Recovering password for:', dados)
     try {
-    // Find the user by email or CPF.
+      // Find the user by email or CPF.
       const userFound = await prisma.user.findFirst({
         where: {
           OR: [
@@ -114,11 +114,16 @@ export const user = {
         }
       })
 
-      // For testing purposes, log the token (replace with email sending logic later)
-      console.log(`Recovery token for ${dados.email || dados.cpf}: ${recoveryToken}`)
+      // Build the reset link.
+      // It’s a good idea to store your front-end URL in an environment variable.
+      const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:8081'
+      // We’ll assume your reset page is at '/reset-password'
+      const resetLink = `${frontendUrl}/#/reset-password?token=${recoveryToken}`
 
-      // Return the token so that the service layer can use it if needed.
-      return { recoveryToken }
+      console.log(`Recovery link for ${dados.email || dados.cpf}: ${resetLink}`)
+
+      // Return both the token and reset link.
+      return { recoveryToken, resetLink }
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error)
@@ -162,6 +167,26 @@ export const user = {
       })
 
       return { message: 'Password reset successfully.' }
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new PrismaClientError(error)
+      }
+      throw error
+    }
+  },
+
+  async validateResetPassword (token) {
+    try {
+      const recoveryRecord = await prisma.recuperacao.findUnique({
+        where: { token }
+      })
+      if (!recoveryRecord) {
+        throw new UnauthorizedError('Invalid token.')
+      }
+
+      if (new Date() > recoveryRecord.expiracao) {
+        throw new UnauthorizedError('Recovery token has expired.')
+      }
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error)

@@ -139,7 +139,7 @@ model contrato {
 model recuperacao {
   id          BigInt   @id @default(autoincrement())
   datacriacao DateTime @default(now())
-  token       String   @db.VarChar(255)
+  token       String   @unique @db.VarChar(255)
   expiracao   DateTime
 
   user   user   @relation(fields: [userid], references: [userid])

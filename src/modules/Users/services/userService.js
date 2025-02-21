@@ -74,3 +74,11 @@ export const resetPassword = async (dados) => {
   // Call the repository function to perform the reset
   return await user.resetPassword(dados.token, dados.newPassword)
 }
+
+export const validateResetPassword = async (dados) => {
+  if (!dados.token) {
+    throw new BadRequestError('Token is required.')
+  }
+  await user.validateResetPassword(dados.token)
+  return { message: 'Token Valid.' }
+}

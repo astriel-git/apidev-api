@@ -1,6 +1,6 @@
 // src/modules/Users/routes/userRoutes.js
 import { Router } from 'express'
-import { loginUser, registerUser, recoverPassword, resetPassword } from '../../Users/services/userService.js'
+import { loginUser, registerUser, recoverPassword, resetPassword, validateResetPassword } from '../../Users/services/userService.js'
 
 const router = Router()
 
@@ -33,6 +33,11 @@ router.post('/recuperar', async (req, res, next) => {
 
 router.post('/reset', async (req, res) => {
   const result = await resetPassword(req.body)
+  res.json(result)
+})
+
+router.post('/validate-reset', async (req, res) => {
+  const result = await validateResetPassword(req.body)
   res.json(result)
 })
 
