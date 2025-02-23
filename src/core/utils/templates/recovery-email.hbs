@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Password Recovery</title>
+    <style>
+      /* Basic reset */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background-color: #ffffff;
+        padding: 20px;
+        text-align: center;
+      }
+      .header img {
+        max-width: 250px;
+      }
+      .content {
+        padding: 30px 20px;
+        text-align: center;
+      }
+      .title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333333;
+      }
+      .message {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #555555;
+        margin-bottom: 20px;
+      }
+      .button {
+        display: inline-block;
+        padding: 12px 20px;
+        background-color: #000000;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+      .footer {
+        font-size: 12px;
+        color: #777777;
+        padding: 10px;
+        background-color: #f0f0f0;
+        text-align: center;
+      }
+      a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <!-- Replace this with your actual logo URL; ensure it's accessible publicly -->
+        <img src="{{logoUrl}}" alt="Logo" />
+      </div>
+      <div class="content">
+        <div class="title">Recuperação de Senha</div>
+        <div class="message">
+          Você requistitou a mudança da senha do seu accesso á plataforma. Clique no botão abaixo para cadastrar uma nova senha.
+        </div>
+        <div class="message">
+          Caso você não tenha pedido esta alteração, simplesmente ignore esta mensagem. Obrigado.
+        </div>
+        <a class="button" href="{{resetLink}}">Redefinir Senha</a>
+      </div>
+      <div class="footer">
+        © 2023-2024 - CPFCNPJ.com.br<br />
+        Prover Soluções em Tecnologia<br />
+        Fale Conosco: hello@prover.com.br
+      </div>
+    </div>
+  </body>
+</html>

@@ -5,6 +5,7 @@ apidev-api
 ├─ .nvmrc
 ├─ create-prisma-base-api.ps1
 ├─ docker-compose.yml
+├─ nodemon.json
 ├─ package-lock.json
 ├─ package.json
 ├─ prisma
@@ -31,95 +32,113 @@ apidev-api
 │  │  │  └─ migration.sql
 │  │  ├─ 20250219060112_user_table_updates
 │  │  │  └─ migration.sql
+│  │  ├─ 20250219232106_
+│  │  │  └─ migration.sql
+│  │  ├─ 20250221054324_recuperacao_table_added
+│  │  │  └─ migration.sql
+│  │  ├─ 20250221190919_
+│  │  │  └─ migration.sql
 │  │  └─ migration_lock.toml
 │  └─ schema.prisma
 ├─ README.md
-└─ src
-   ├─ app.js
-   ├─ config
-   │  ├─ prismaClient.js
-   │  ├─ vite.config.js
-   │  └─ whitelist.js
-   ├─ core
-   │  ├─ auth
-   │  │  └─ jwt.js
-   │  ├─ errors
-   │  │  ├─ errorHandler.js
-   │  │  ├─ errorMiddleware.js
-   │  │  └─ index.js
-   │  ├─ extensions
-   │  │  └─ bigintExtension.js
-   │  ├─ middlewares
-   │  │  └─ verify-token.js
-   │  └─ utils
-   │     ├─ logger.js
-   │     └─ monitoring.js
-   ├─ modules
-   │  ├─ PacoteA
-   │  │  ├─ data-access
-   │  │  │  └─ aRepo.js
-   │  │  ├─ routes
-   │  │  │  └─ aRoutes.js
-   │  │  └─ services
-   │  │     └─ aService.js
-   │  ├─ PacoteB
-   │  │  ├─ data-access
-   │  │  │  └─ bService.js
-   │  │  ├─ routes
-   │  │  │  └─ bRoutes.js
-   │  │  └─ services
-   │  │     └─ bService.js
-   │  ├─ PacoteC
-   │  │  ├─ data-access
-   │  │  │  └─ cService.js
-   │  │  ├─ routes
-   │  │  │  └─ cRoutes.js
-   │  │  └─ services
-   │  │     └─ cServices.js
-   │  ├─ PacoteD
-   │  │  ├─ data-access
-   │  │  │  └─ dService.js
-   │  │  └─ routes
-   │  │     └─ dRoutes.js
-   │  ├─ Users
-   │  │  ├─ data-access
-   │  │  │  └─ userRepo.js
-   │  │  ├─ routes
-   │  │  │  └─ userRoutes.js
-   │  │  └─ services
-   │  │     └─ userService.js
-   │  └─ Utilities
-   │     ├─ data-access
-   │     │  └─ utilsRepo.js
-   │     └─ routes
-   │        ├─ downloaderRoutes.js
-   │        ├─ getAvailableCategories.js
-   │        ├─ getAvailableDates.js
-   │        ├─ importerRoutes.js
-   │        ├─ index.js
-   │        └─ unzipperRoutes.js
-   ├─ routes
-   │  └─ index.js
-   ├─ server.js
-   └─ utils
-      ├─ downloader
-      │  └─ src
-      │     └─ downloader.js
-      ├─ importer
-      │  └─ src
-      │     ├─ databaseImporter.js
-      │     ├─ importadorCnae.js
-      │     ├─ importadorEmpresa.js
-      │     ├─ importadorEstabelecimentos.js
-      │     ├─ importadorMunicipios.js
-      │     ├─ importadorNaturezas.js
-      │     ├─ importadorSimples.js
-      │     ├─ importadorSituacaoCadastral.js
-      │     └─ importadorSocios.js
-      └─ unzipper
-         ├─ src
-         │  └─ unzipper.js
-         └─ unzipped
-            └─ DESCMOTIVOSITUACAOCADASTRAL.CSV
+├─ src
+│  ├─ app.ts
+│  ├─ config
+│  │  ├─ prismaClient.ts
+│  │  ├─ vite.config.ts
+│  │  └─ whitelist.ts
+│  ├─ core
+│  │  ├─ auth
+│  │  │  ├─ api-dev-449113-5e2b303b5710.json
+│  │  │  └─ jwt.ts
+│  │  ├─ errors
+│  │  │  ├─ customErrors.ts
+│  │  │  ├─ errorHandler.ts
+│  │  │  └─ errorMiddleware.ts
+│  │  ├─ extensions
+│  │  │  └─ bigintExtension.ts
+│  │  ├─ middlewares
+│  │  │  ├─ recaptcha-enterprise.ts
+│  │  │  └─ verify-token.ts
+│  │  └─ utils
+│  │     ├─ email.ts
+│  │     ├─ logger.ts
+│  │     ├─ monitoring.ts
+│  │     └─ templates
+│  │        ├─ assets
+│  │        │  ├─ logo-black.svg
+│  │        │  ├─ logo-white.svg
+│  │        │  ├─ logo.svg
+│  │        │  └─ pretty-logo.png
+│  │        └─ recovery-email.hbs
+│  ├─ global.d.ts
+│  ├─ modules
+│  │  ├─ PacoteA
+│  │  │  ├─ data-access
+│  │  │  │  └─ aRepo.ts
+│  │  │  ├─ routes
+│  │  │  │  └─ aRoutes.ts
+│  │  │  └─ services
+│  │  │     └─ aService.ts
+│  │  ├─ PacoteB
+│  │  │  ├─ data-access
+│  │  │  │  └─ bService.ts
+│  │  │  ├─ routes
+│  │  │  │  └─ bRoutes.ts
+│  │  │  └─ services
+│  │  │     └─ bService.ts
+│  │  ├─ PacoteC
+│  │  │  ├─ data-access
+│  │  │  │  └─ cService.ts
+│  │  │  ├─ routes
+│  │  │  │  └─ cRoutes.ts
+│  │  │  └─ services
+│  │  │     └─ cServices.ts
+│  │  ├─ PacoteD
+│  │  │  ├─ data-access
+│  │  │  │  └─ dService.ts
+│  │  │  └─ routes
+│  │  │     └─ dRoutes.ts
+│  │  ├─ Users
+│  │  │  ├─ data-access
+│  │  │  │  └─ userRepo.ts
+│  │  │  ├─ routes
+│  │  │  │  └─ userRoutes.ts
+│  │  │  └─ services
+│  │  │     └─ userService.ts
+│  │  └─ Utilities
+│  │     ├─ data-access
+│  │     │  └─ utilsRepo.ts
+│  │     └─ routes
+│  │        ├─ downloaderRoutes.ts
+│  │        ├─ getAvailableCategories.ts
+│  │        ├─ getAvailableDates.ts
+│  │        ├─ importerRoutes.ts
+│  │        ├─ index.ts
+│  │        └─ unzipperRoutes.ts
+│  ├─ routes
+│  │  └─ index.ts
+│  ├─ server.ts
+│  └─ utils
+│     ├─ downloader
+│     │  └─ src
+│     │     └─ downloader.ts
+│     ├─ importer
+│     │  └─ src
+│     │     ├─ databaseImporter.ts
+│     │     ├─ importadorCnae.ts
+│     │     ├─ importadorEmpresa.ts
+│     │     ├─ importadorEstabelecimentos.ts
+│     │     ├─ importadorMunicipios.ts
+│     │     ├─ importadorNaturezas.ts
+│     │     ├─ importadorSimples.ts
+│     │     ├─ importadorSituacaoCadastral.ts
+│     │     └─ importadorSocios.ts
+│     └─ unzipper
+│        ├─ src
+│        │  └─ unzipper.ts
+│        └─ unzipped
+│           └─ DESCMOTIVOSITUACAOCADASTRAL.CSV
+└─ tsconfig.json
 
 ```
