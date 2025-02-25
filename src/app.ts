@@ -30,7 +30,7 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.use(helmet());
 
-app.use('/', routes);
+app.use(routes);
 
 // Global error handling for non-Express errors
 process.on('uncaughtException', (error: Error) => {

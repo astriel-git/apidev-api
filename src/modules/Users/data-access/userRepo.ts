@@ -5,22 +5,16 @@ import { PrismaClientError, UnauthorizedError, TokenExpiredError } from '../../.
 import { Prisma } from '@prisma/client';
 import { createToken } from '../../../core/auth/jwt.ts';
 import crypto from 'crypto';
-import type * as UserTypes from '../types/user.interface';
+import type * as UserRequests from '../types/user.requests.ts';
+import type * as UserResponses from '../types/user.responses.ts';
 
 const SALT_ROUNDS = 10;
 
 export const user = {
-  /**
-   * Attempts to find a user by credentials and returns an authentication token and user data (without password).
-   *
-   * @param {UserTypes.LoginData} dados - An object containing the login credentials.
-   * @returns {Promise<any>} A promise that resolves with an object containing a token and user data.
-   * @throws {Error} Throws an error if the credentials are invalid or if there is a Prisma client error.
-   */
-  async login(dados: UserTypes.LoginData): Promise<any> {
+  async login(dados: UserRequests.LoginRequest): Promise<UserResponses.LoginResponse> {
     try {
       const identifier = dados.identificador;
-      const login = await prisma.user.findFirst({
+      const loginRecord = await prisma.user.findFirst({
         select: {
           userid: true,
           role: true,
@@ -34,14 +28,26 @@ export const user = {
         },
       });
 
-      if (!login || !(await bcrypt.compare(dados.senha, login.senha))) {
-        throw new Error('Invalid credentials');
+      if (!loginRecord) {
+        throw new Error('Invalid credentials here 2');
       }
 
-      const { senha, ...userWithoutPassword } = login;
-      const token = createToken({ ...userWithoutPassword, userid: Number(userWithoutPassword.userid) });
-      return { token, login: userWithoutPassword };
-    } catch (error: any) {
+      const isPasswordValid = await bcrypt.compare(dados.senha, loginRecord.senha);
+      if (!isPasswordValid) {
+        throw new Error('Invalid credentials here 3');
+      }
+
+      const userWithoutPassword: UserResponses.UserWithoutPassword = {
+        userid: Number(loginRecord.userid),
+        role: loginRecord.role,
+        nome: loginRecord.nome,
+        email: loginRecord.email,
+        cpf: loginRecord.cpf,
+      };
+
+      const tokenObj = createToken(userWithoutPassword);
+      return { token: tokenObj, user: userWithoutPassword};
+    } catch (error: unknown) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error);
       }
@@ -49,14 +55,7 @@ export const user = {
     }
   },
 
-  /**
-   * Registers a new user by hashing the provided password and creating a user record in the database.
-   *
-   * @param {UserTypes.RegisterData} dados - An object containing the registration data.
-   * @returns {Promise<any>} A promise that resolves with the newly created user object.
-   * @throws {Error} Throws an error if the registration fails or if there is a Prisma client error.
-   */
-  async register(dados: UserTypes.RegisterData): Promise<any> {
+  async register(dados: UserRequests.RegisterRequest): Promise<UserResponses.RegisterResponse> {
     try {
       const hashedPassword = await bcrypt.hash(dados.senha, SALT_ROUNDS);
       const newUser = await prisma.user.create({
@@ -70,8 +69,15 @@ export const user = {
           razaosocial: dados?.razaosocial,
         },
       });
-      return newUser;
-    } catch (error: any) {
+      const registeredUser: UserResponses.RegisterResponse = {
+        userid: newUser.userid,
+        role: newUser.role,
+        nome: newUser.nome,
+        email: newUser.email,
+        cpf: newUser.cpf,
+      };
+      return registeredUser;
+    } catch (error: unknown) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error);
       }
@@ -79,16 +85,7 @@ export const user = {
     }
   },
 
-  /**
-   * Generates a password recovery token, stores it with an expiration date, and builds a reset link.
-   *
-   * @param {UserTypes.RecoverPasswordData} dados - An object containing the user's email and CPF.
-   * @returns {Promise<{ recoveryToken: string; resetLink: string }>} A promise that resolves with an object containing the recovery token and reset link.
-   * @throws {Error} Throws an error if the user is not found or if there is a Prisma client error.
-   */
-  async recoverPassword(
-    dados: UserTypes.RecoverPasswordData
-  ): Promise<{ recoveryToken: string; resetLink: string }> {
+  async recoverPassword( dados: UserRequests.RecoverPasswordRequest ): Promise<UserResponses.RecoverPasswordResponse> {
     try {
       const userFound = await prisma.user.findFirst({
         where: {
@@ -111,7 +108,7 @@ export const user = {
       const frontendUrl = process.env.FRONTEND_URL;
       const resetLink = `${frontendUrl}/#/reset-password?token=${recoveryToken}`;
       return { recoveryToken, resetLink };
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error);
       }
@@ -119,17 +116,10 @@ export const user = {
     }
   },
 
-  /**
-   * Resets the user's password given a valid recovery token and a new password.
-   *
-   * @param {UserTypes.ResetPasswordData} param0 - An object containing the recovery token and new password.
-   * @returns {Promise<{ message: string }>} A promise that resolves with a success message.
-   * @throws {UnauthorizedError} Throws if the token is invalid, expired, or if there is a Prisma client error.
-   */
-  async resetPassword({ token, newPassword }: UserTypes.ResetPasswordData): Promise<{ message: string }> {
+  async resetPassword(dados: UserRequests.ResetPasswordRequest): Promise<{ message: string }> {
     try {
       const recoveryRecord = await prisma.recuperacao.findUnique({
-        where: { token },
+        where: { token: dados.token },
       });
       if (!recoveryRecord) {
         throw new UnauthorizedError('Invalid or expired token.');
@@ -139,7 +129,7 @@ export const user = {
         throw new UnauthorizedError('Recovery token has expired.');
       }
 
-      const hashedPassword = await bcrypt.hash(newPassword, SALT_ROUNDS);
+      const hashedPassword = await bcrypt.hash(dados.newPassword, SALT_ROUNDS);
       await prisma.user.update({
         where: { userid: recoveryRecord.userid },
         data: { senha: hashedPassword },
@@ -149,7 +139,7 @@ export const user = {
       });
 
       return { message: 'Password reset successfully.' };
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error);
       }
@@ -157,17 +147,10 @@ export const user = {
     }
   },
 
-  /**
-   * Validates the provided password reset token by ensuring it exists and has not expired.
-   *
-   * @param {UserTypes.ValidateResetPasswordData} param0 - An object containing the recovery token.
-   * @returns {Promise<void>} A promise that resolves if the token is valid.
-   * @throws {UnauthorizedError | TokenExpiredError} Throws if the token is invalid or expired, or if there is a Prisma client error.
-   */
-  async validateResetPassword({ token }: UserTypes.ValidateResetPasswordData): Promise<void> {
+  async validatePasswordResetRequest(dados: UserRequests.ValidatePasswordResetRequest): Promise<void> {
     try {
       const recoveryRecord = await prisma.recuperacao.findUnique({
-        where: { token },
+        where: { token: dados.token },
       });
       if (!recoveryRecord) {
         throw new UnauthorizedError('Invalid token.');
@@ -175,7 +158,7 @@ export const user = {
       if (new Date() > recoveryRecord.expiracao) {
         throw new TokenExpiredError('Recovery token has expired.');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error);
       }

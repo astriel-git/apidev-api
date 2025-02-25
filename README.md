@@ -65,11 +65,6 @@ apidev-api
 │  │     ├─ logger.ts
 │  │     ├─ monitoring.ts
 │  │     └─ templates
-│  │        ├─ assets
-│  │        │  ├─ logo-black.svg
-│  │        │  ├─ logo-white.svg
-│  │        │  ├─ logo.svg
-│  │        │  └─ pretty-logo.png
 │  │        └─ recovery-email.hbs
 │  ├─ global.d.ts
 │  ├─ modules
@@ -104,8 +99,12 @@ apidev-api
 │  │  │  │  └─ userRepo.ts
 │  │  │  ├─ routes
 │  │  │  │  └─ userRoutes.ts
-│  │  │  └─ services
-│  │  │     └─ userService.ts
+│  │  │  ├─ services
+│  │  │  │  └─ userService.ts
+│  │  │  └─ types
+│  │  │     ├─ index.ts
+│  │  │     ├─ user.dto.ts
+│  │  │     └─ user.response.ts
 │  │  └─ Utilities
 │  │     ├─ data-access
 │  │     │  └─ utilsRepo.ts

@@ -41,7 +41,6 @@ async function compileTemplate(templateName: string, context: any): Promise<stri
  * @param recoveryLink The password recovery link.
  */
 export async function sendRecoveryEmail(to: string, recoveryLink: string): Promise<void> {
-  // Replace with your actual logo URL (it must be publicly accessible)
   const logoUrl = 'https://i.imgur.com/MrJ6KOa.png';
   
   const htmlContent = await compileTemplate('recovery-email.hbs', { 
