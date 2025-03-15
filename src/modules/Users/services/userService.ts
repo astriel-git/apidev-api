@@ -50,13 +50,10 @@ export const registerUser = async (dados: UserRequests.RegisterRequest): Promise
     return newUser;
   } catch (error: unknown) {
     if (error instanceof PrismaClientError) {
-      if (error.details && error.details.code === 'P2002') {
-        const uniqueConstraint = error.details.meta.target;
-        throw new ConstraintError(uniqueConstraint);
+        throw new ConstraintError('User already exists.'); 
       }
     }
-    throw error;
-  }
+    throw Error;
 };
 
 export const recoverPassword = async (dados: UserRequests.RecoverPasswordRequest): Promise<UserResponses.RecoverPasswordResponse> => {

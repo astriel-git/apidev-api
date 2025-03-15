@@ -15,28 +15,16 @@ export const user = {
     try {
       const identifier = dados.identificador;
       const loginRecord = await prisma.user.findFirst({
-        select: {
-          userid: true,
-          role: true,
-          nome: true,
-          email: true,
-          senha: true,
-          cpf: true,
-        },
-        where: {
-          OR: [{ email: identifier }, { cpf: identifier }],
-        },
+        select: { userid: true, role: true, nome: true, email: true, senha: true, cpf: true },
+        where: { OR: [{ email: identifier }, { cpf: identifier }] },
       });
-
       if (!loginRecord) {
-        throw new Error('Invalid credentials here 2');
+        throw new UnauthorizedError('CPF ou Email não cadastrados.');
       }
-
       const isPasswordValid = await bcrypt.compare(dados.senha, loginRecord.senha);
       if (!isPasswordValid) {
-        throw new Error('Invalid credentials here 3');
+        throw new UnauthorizedError('Senha Incorreta');
       }
-
       const userWithoutPassword: UserResponses.UserWithoutPassword = {
         userid: Number(loginRecord.userid),
         role: loginRecord.role,
@@ -44,9 +32,8 @@ export const user = {
         email: loginRecord.email,
         cpf: loginRecord.cpf,
       };
-
       const tokenObj = createToken(userWithoutPassword);
-      return { token: tokenObj, user: userWithoutPassword};
+      return { token: tokenObj, user: userWithoutPassword };
     } catch (error: unknown) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error);

@@ -1,36 +1,46 @@
-// src/errors/errorHandler.ts
+// src/core/errors/errorHandler.ts
+import type { Request, Response } from 'express';
+import type { MonitoredError } from '../utils/monitoring.ts';
 import logger from '../utils/logger.ts';
 import sendMonitoringData from '../utils/monitoring.ts';
+
+
 
 interface CustomError extends Error {
   isCritical?: boolean;
   statusCode?: number;
 }
 
-class ErrorHandler {
-  /**
-   * Handles the error by logging it, sending monitoring data, and optionally responding.
-   * @param error - The error to handle.
-   * @param responseStream - (Optional) Express response object to send error status.
-   */
-  async handleError(error: CustomError, responseStream: any = null): Promise<void> {
-    await logger.logError(error); // Log error details
-    await sendMonitoringData(error); // Send monitoring data
-
-    if (error.isCritical) {
-      process.exit(1); // Optionally exit on critical errors
-    } else if (responseStream) {
-      responseStream.status(error.statusCode || 500).json({ message: error.message });
+export class ErrorHandler {
+  async handleError(error: CustomError, req?: Request, res?: Response): Promise<void> {
+    const errorId = Math.random().toString(36).substring(2, 15);
+    logger.error(`ErrorID: ${errorId} - ${error.message}`, {
+      error,
+      path: req?.path,
+      method: req?.method,
+    });
+    const monitoredError: MonitoredError = {
+      error,
+      errorId,
+      path: req?.path,
+      method: req?.method,
+    };
+    await sendMonitoringData(monitoredError);
+    if (error.isCritical) process.exit(1);
+    if (res) {
+      const statusCode = error.statusCode || 500;
+      res.status(statusCode).json({
+        status: 'error',
+        errorId,
+        message: process.env.NODE_ENV === 'production' && statusCode === 500
+          ? 'Internal Server Error'
+          : error.message,
+      });
     }
   }
 
-  /**
-   * Checks if the error is trusted and non-critical.
-   * @param error - The error to check.
-   * @returns True if the error is non-critical.
-   */
   isTrustedError(error: CustomError): boolean {
-    return !error.isCritical; // Simple check for trusted errors
+    return !error.isCritical;
   }
 }
 

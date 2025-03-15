@@ -1,17 +1,22 @@
 // src/utils/monitoring.ts
 
-interface MonitoredError extends Error {
-  isCritical?: boolean;
+export interface MonitoredError {
+  error: Error & { isCritical?: boolean }; // extend Error with optional isCritical
+  errorId: string;
+  path?: string;
+  method?: string;
 }
 
-const sendMonitoringData = async (error: MonitoredError): Promise<void> => {
-  // Placeholder: log to the console for now
-  console.log('Simulating sending error data to a monitoring service:', {
-    name: error.name,
-    message: error.message,
-    isCritical: error.isCritical || false,
+const sendMonitoringData = async (monitoredError: MonitoredError): Promise<void> => {
+  console.log('Sending monitoring data:', {
+    errorId: monitoredError.errorId,
+    name: monitoredError.error.name,
+    message: monitoredError.error.message,
+    isCritical: monitoredError.error.isCritical ?? false,
+    path: monitoredError.path,
+    method: monitoredError.method,
   });
-  // Add logic later to send this data to a real service
+  // Here you could integrate with a real monitoring service.
 };
 
 export default sendMonitoringData;
