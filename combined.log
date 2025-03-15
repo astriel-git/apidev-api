@@ -70,3 +70,11 @@
     at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:26:15)
     at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:29:18)
     at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:14:20)
+[2025-03-15T18:28:30.874Z] error: Error: CPF ou Email não cadastrados.
+    at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:22:15)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:29:18)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:14:20)
+[2025-03-15T18:28:49.313Z] error: Error: CPF ou Email não cadastrados.
+    at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:22:15)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:29:18)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:14:20)
