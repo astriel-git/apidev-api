@@ -1,39 +1,38 @@
 // src/modules/Users/controllers/userController.ts
 import type { Request, Response, NextFunction } from 'express';
 import * as userService from '../services/userService.ts';
-import type * as UserRequests from '../types/user.requests.ts';
-import type * as UserResponses from '../types/user.responses.ts';
+import type * as UserInterface from '../types/userTypes.ts';
 import { TokenExpiredError } from '../../../core/errors/customErrors.ts';
 
 export const loginUser = async (
-  req: Request<UserRequests.LoginRequest>,
-  res: Response<UserResponses.ApiResponse<UserResponses.LoginResponse>>,
+  req: Request<UserInterface.LoginRequest>,
+  res: Response<UserInterface.ApiResponse<UserInterface.LoginResponse>>,
   next: NextFunction
 ): Promise<void> => {
   try {
     const result = await userService.loginUser(req.body);
-    res.status(200).json({ data: result, status: 'success', message: 'Login efetuado com sucesso.' });
+    res.status(200).json({ response: result, status: 'success', message: 'Login efetuado com sucesso.' });
   } catch (error) {
     next(error);
   }
 };
 
 export const registerUser = async (
-  req: Request<UserRequests.RegisterRequest>,
-  res: Response<UserResponses.ApiResponse<UserResponses.RegisterResponse>>,
+  req: Request<UserInterface.RegisterRequest>,
+  res: Response<UserInterface.ApiResponse<UserInterface.RegisterResponse>>,
   next: NextFunction
 ): Promise<void> => {
   try {
     const result = await userService.registerUser(req.body);
-    res.status(201).json({ data: result, status: 'success', message: 'Usuário registrado com sucesso.' });
+    res.status(201).json({ response: result, status: 'success', message: 'Usuário registrado com sucesso.' });
   } catch (error) {
     next(error);
   }
 };
 
 export const recoverPassword = async (
-  req: Request<UserRequests.RecoverPasswordRequest>,
-  res: Response<UserResponses.ApiResponse<UserResponses.RecoverPasswordResponse>>,
+  req: Request<UserInterface.RecoverPasswordRequest>,
+  res: Response<UserInterface.ApiResponse<UserInterface.RecoverPasswordResponse>>,
   next: NextFunction
 ): Promise<void> => {
   try {
@@ -45,8 +44,8 @@ export const recoverPassword = async (
 };
 
 export const resetPassword = async (
-  req: Request<UserRequests.ResetPasswordRequest>,
-  res: Response<UserResponses.ApiResponse<UserResponses.ResetPasswordResponse>>,
+  req: Request<UserInterface.ResetPasswordRequest>,
+  res: Response<UserInterface.ApiResponse<UserInterface.ResetPasswordResponse>>,
   next: NextFunction
 ): Promise<void> => {
   try {

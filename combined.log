@@ -78,3 +78,11 @@
     at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:22:15)
     at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:29:18)
     at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:14:20)
+[2025-03-17T12:31:45.536Z] error: Error: reCAPTCHA verification failed: DUPE
+    at verifyRecaptcha (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/recaptcha-enterprise.ts:36:11)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:18:21)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:14:20)
+[2025-03-17T14:28:53.447Z] error: Error: reCAPTCHA verification failed: DUPE
+    at verifyRecaptcha (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/recaptcha-enterprise.ts:36:11)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:17:21)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)

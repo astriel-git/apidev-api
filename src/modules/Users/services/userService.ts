@@ -3,10 +3,9 @@ import { user } from '../data-access/userRepo.ts';
 import { UnauthorizedError, BadRequestError, ConstraintError, PrismaClientError } from '../../../core/errors/customErrors.ts';
 import { verifyRecaptcha } from '../../../core/middlewares/recaptcha-enterprise.ts';
 import { sendRecoveryEmail } from '../../../core/utils/email.ts';
-import type * as UserRequests from '../types/user.requests.ts';
-import type * as UserResponses from '../types/user.responses.ts';
+import type * as UserInterface from '../types/userTypes.ts';
 
-export const loginUser = async (dados: UserRequests.LoginRequest): Promise<UserResponses.LoginResponse> => {
+export const loginUser = async (dados: UserInterface.LoginRequest): Promise<UserInterface.LoginResponse> => {
   if (!dados.identificador || !dados.senha) {
     throw new BadRequestError('Email and senha are required.');
   }
@@ -37,7 +36,7 @@ export const loginUser = async (dados: UserRequests.LoginRequest): Promise<UserR
   return result;
 };
 
-export const registerUser = async (dados: UserRequests.RegisterRequest): Promise<UserResponses.RegisterResponse> => {
+export const registerUser = async (dados: UserInterface.RegisterRequest): Promise<UserInterface.RegisterResponse> => {
   if (!dados.nome || !dados.email || !dados.senha) {
     throw new BadRequestError('Name, email, and senha are required.');
   }
@@ -56,7 +55,7 @@ export const registerUser = async (dados: UserRequests.RegisterRequest): Promise
     throw Error;
 };
 
-export const recoverPassword = async (dados: UserRequests.RecoverPasswordRequest): Promise<UserResponses.RecoverPasswordResponse> => {
+export const recoverPassword = async (dados: UserInterface.RecoverPasswordRequest): Promise<UserInterface.RecoverPasswordResponse> => {
   if (!dados.email || !dados.cpf) {
     throw new BadRequestError('Email and CPF are required.');
   }
@@ -78,7 +77,7 @@ export const recoverPassword = async (dados: UserRequests.RecoverPasswordRequest
 };
 
 
-export const resetPassword = async (dados: UserRequests.ResetPasswordRequest): Promise<UserResponses.RecoverPasswordResponse> => {
+export const resetPassword = async (dados: UserInterface.ResetPasswordRequest): Promise<UserInterface.RecoverPasswordResponse> => {
   if (!dados.token || !dados.newPassword) {
     throw new BadRequestError('Token and new password are required.');
   }
@@ -87,7 +86,7 @@ export const resetPassword = async (dados: UserRequests.ResetPasswordRequest): P
   return { recoveryToken: dados.token, resetLink: 'Password reset successfully.' };
 };
 
-export const validateResetPassword = async (dados: UserRequests.ValidatePasswordResetRequest): Promise<UserResponses.ValidatePasswordResetResponse> => {
+export const validateResetPassword = async (dados: UserInterface.ValidatePasswordResetRequest): Promise<UserInterface.ValidatePasswordResetResponse> => {
   if (!dados.token) {
     throw new BadRequestError('Token is required.');
   }

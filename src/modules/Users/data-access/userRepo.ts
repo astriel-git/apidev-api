@@ -5,13 +5,12 @@ import { PrismaClientError, UnauthorizedError, TokenExpiredError } from '../../.
 import { Prisma } from '@prisma/client';
 import { createToken } from '../../../core/auth/jwt.ts';
 import crypto from 'crypto';
-import type * as UserRequests from '../types/user.requests.ts';
-import type * as UserResponses from '../types/user.responses.ts';
+import type * as UserInterface from '../types/userTypes.ts';
 
 const SALT_ROUNDS = 10;
 
 export const user = {
-  async login(dados: UserRequests.LoginRequest): Promise<UserResponses.LoginResponse> {
+  async login(dados: UserInterface.LoginRequest): Promise<UserInterface.LoginResponse> {
     try {
       const identifier = dados.identificador;
       const loginRecord = await prisma.user.findFirst({
@@ -25,15 +24,13 @@ export const user = {
       if (!isPasswordValid) {
         throw new UnauthorizedError('Senha Incorreta');
       }
-      const userWithoutPassword: UserResponses.UserWithoutPassword = {
+      const publicUser: UserInterface.PublicUser = {
         userid: Number(loginRecord.userid),
         role: loginRecord.role,
         nome: loginRecord.nome,
-        email: loginRecord.email,
-        cpf: loginRecord.cpf,
       };
-      const tokenObj = createToken(userWithoutPassword);
-      return { token: tokenObj, user: userWithoutPassword };
+      const tokenObj = createToken(publicUser);
+      return { token: tokenObj.token, exp: tokenObj.exp, user: publicUser };
     } catch (error: unknown) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
         throw new PrismaClientError(error);
@@ -42,7 +39,7 @@ export const user = {
     }
   },
 
-  async register(dados: UserRequests.RegisterRequest): Promise<UserResponses.RegisterResponse> {
+  async register(dados: UserInterface.RegisterRequest): Promise<UserInterface.RegisterResponse> {
     try {
       const hashedPassword = await bcrypt.hash(dados.senha, SALT_ROUNDS);
       const newUser = await prisma.user.create({
@@ -56,7 +53,7 @@ export const user = {
           razaosocial: dados?.razaosocial,
         },
       });
-      const registeredUser: UserResponses.RegisterResponse = {
+      const registeredUser: UserInterface.RegisterResponse = {
         userid: newUser.userid,
         role: newUser.role,
         nome: newUser.nome,
@@ -72,7 +69,7 @@ export const user = {
     }
   },
 
-  async recoverPassword( dados: UserRequests.RecoverPasswordRequest ): Promise<UserResponses.RecoverPasswordResponse> {
+  async recoverPassword( dados: UserInterface.RecoverPasswordRequest ): Promise<UserInterface.RecoverPasswordResponse> {
     try {
       const userFound = await prisma.user.findFirst({
         where: {
@@ -103,7 +100,7 @@ export const user = {
     }
   },
 
-  async resetPassword(dados: UserRequests.ResetPasswordRequest): Promise<{ message: string }> {
+  async resetPassword(dados: UserInterface.ResetPasswordRequest): Promise<{ message: string }> {
     try {
       const recoveryRecord = await prisma.recuperacao.findUnique({
         where: { token: dados.token },
@@ -134,7 +131,7 @@ export const user = {
     }
   },
 
-  async validatePasswordResetRequest(dados: UserRequests.ValidatePasswordResetRequest): Promise<void> {
+  async validatePasswordResetRequest(dados: UserInterface.ValidatePasswordResetRequest): Promise<void> {
     try {
       const recoveryRecord = await prisma.recuperacao.findUnique({
         where: { token: dados.token },
