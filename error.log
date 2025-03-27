@@ -180,3 +180,11 @@ Please make sure your database server is running at `localhost:5432`.
     at async Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:16:27)
     at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:28:18)
     at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-03-26T13:11:54.864Z] error: Error: reCAPTCHA verification failed: DUPE
+    at verifyRecaptcha (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/recaptcha-enterprise.ts:36:11)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:17:21)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-03-26T13:11:55.025Z] error: Error: CPF ou Email não cadastrados.
+    at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:21:15)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:28:18)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
