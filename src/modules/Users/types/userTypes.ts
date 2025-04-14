@@ -92,14 +92,14 @@ export interface LoginResponse {
 /**
  * Response type returned when a new user is registered.
  * This is typically the user object without the password.
- * @param {bigint} userid - The user's ID.
+ * @param {bigint} iduser - The user's ID.
  * @param {string} nome - The user's name.
  * @param {string} email - The user's email.
  * @param {string} role - The user's role.
  * 
  */
 export interface RegisterResponse {
-  userid:   bigint;
+  iduser:   string;
   nome:     string;
   email:    string;
   role:     string;
@@ -137,13 +137,13 @@ export interface ValidatePasswordResetResponse {
 
 /**
  * Represents a user object without sensitive information like the password.
- * @param {number} userid - The user's ID.
+ * @param {number} iduser - The user's ID.
  * @param {string} nome - The user's name.
  * @param {string} email - The user's email.
  * @param {string} role - The user's role.
  */
 export interface PublicUser {
-  userid: number;
+  iduser: number;
   role: string;
   nome: string;
 }

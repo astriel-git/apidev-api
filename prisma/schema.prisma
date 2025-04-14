@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,38 +12,48 @@ datasource db {
 
 /// user model stores basic user information and credentials.
 model user {
-  userid         BigInt   @id @default(autoincrement())
-  datacriacao    DateTime @default(now())
-  dataupdate     DateTime @updatedAt
-  nome           String   @db.VarChar(255)
-  email          String   @unique @db.VarChar(255)
-  datanascimento DateTime
-  cpf            String   @unique @db.VarChar(11)
-  cnpj           String?  @db.VarChar(14)
-  razaosocial    String?  @db.VarChar(255)
-  senha          String   @db.VarChar(255)
-  role           String   @default("user")
+  iduser           String    @id @default(uuid())
+  datacriacao      DateTime  @default(now())
+  dataupdate       DateTime  @updatedAt
+  nome             String    @db.VarChar(255)
+  email            String    @unique @db.VarChar(255)
+  datanascimento   DateTime
+  cpf              String    @unique @db.VarChar(11)
+  cnpj             String?   @db.VarChar(14)
+  razaosocial      String?   @db.VarChar(255)
+  senha            String    @db.VarChar(255)
+  role             role      @default(user)
+  ultimoacessoip   String?   @db.VarChar(255)
+  ultimoacessodata DateTime?
+  deleted          Boolean   @default(false)
+  deletedat        DateTime?
 
   // Relations
-  saldos       saldo[]
-  cobrancas    cobranca[]
-  pagamentos   pagamento[]
-  contratos    contrato[]
-  recuperacoes recuperacao[]
+  saldos             saldo[]
+  faturas            fatura[]
+  transacoes         transacao[]
+  contratos          contrato[]
+  recuperacoes       recuperacao[]
+  consultas          consulta[]
+  relatorioconsultas relatorioconsultas[]
+  errorsapi          errorsapi[]
+  tokens             token[]
 }
 
 /// saldo model keeps track of remaining credits for each user-package combination.
 model saldo {
-  saldoid     BigInt   @id @default(autoincrement())
-  datacriacao DateTime @default(now())
-  dataupdate  DateTime @updatedAt
-  userid      BigInt
-  pacoteid    BigInt
+  idsaldo     String    @id @default(uuid())
+  datacriacao DateTime  @default(now())
+  dataupdate  DateTime  @updatedAt
+  userid      String
+  pacoteid    String
   saldo       Float
+  deleted     Boolean   @default(false)
+  deletedat   DateTime?
 
   // Relations
-  user   user   @relation(fields: [userid], references: [userid])
-  pacote pacote @relation(fields: [pacoteid], references: [pacoteid])
+  user   user   @relation(fields: [userid], references: [iduser], onDelete: Cascade)
+  pacote pacote @relation(fields: [pacoteid], references: [idpacote])
 
   @@unique([userid, pacoteid])
   @@index([userid])
@@ -55,98 +62,197 @@ model saldo {
 
 /// pacote model defines the various packages available in the system.
 model pacote {
-  pacoteid    BigInt   @id @default(autoincrement())
-  datacriacao DateTime @default(now())
-  dataupdate  DateTime @updatedAt
-  nome        String   @db.VarChar(255)
-  descricao   String   @db.VarChar(255)
+  idpacote    String    @id @default(uuid())
+  datacriacao DateTime  @default(now())
+  dataupdate  DateTime  @updatedAt
+  nome        String    @db.VarChar(255)
+  descricao   String    @db.VarChar(255)
+  features    String[]  @db.Text
   valor       Float
   ativo       Boolean
+  deleted     Boolean   @default(false)
+  deletedat   DateTime?
 
   // Relations
-  saldos    saldo[]
-  cobrancas cobranca[]
-  contratos contrato[]
+  saldos             saldo[]
+  faturas            fatura[]
+  contratos          contrato[]
+  consultas          consulta[]
+  relatorioconsultas relatorioconsultas[]
+  errorsapi          errorsapi[]
 }
 
-/// cobranca model logs each billing transaction with status, method, and amount details.
-model cobranca {
-  cobrancaid  BigInt      @id @default(autoincrement())
+/// fatura model logs each billing transaction with status, method, and amount details.
+model fatura {
+  idfatura    String      @id @default(uuid())
   datacriacao DateTime    @default(now())
   dataupdate  DateTime    @updatedAt
-  userid      BigInt
-  pacoteid    BigInt
-  datapagto   DateTime?
+  userid      String
+  pacoteid    String
+  datastatus  DateTime?
   metodopagto metodopagto
   status      status
   valor       Float
   saldo       Float
+  deleted     Boolean     @default(false)
+  deletedat   DateTime?
 
   // Relations
-  user       user        @relation(fields: [userid], references: [userid])
-  pacote     pacote      @relation(fields: [pacoteid], references: [pacoteid])
-  pagamentos pagamento[]
+  user       user        @relation(fields: [userid], references: [iduser])
+  pacote     pacote      @relation(fields: [pacoteid], references: [idpacote])
+  transacoes transacao[]
 
   @@index([userid])
   @@index([pacoteid])
 }
 
-/// pagamento model captures each payment attempt with status, response code, and amount.
-model pagamento {
-  pagamentoid          BigInt      @id @default(autoincrement())
+/// transacao model captures each payment attempt with status, response code, and amount.
+model transacao {
+  idtransacao          BigInt      @id @default(autoincrement())
   datacriacao          DateTime    @default(now())
   dataupdate           DateTime    @updatedAt
-  userid               BigInt
-  cobrancaid           BigInt
+  userid               String
+  faturaid             String
   valor                Float
   datapagto            DateTime
   metodopagto          metodopagto
   providertransid      String
   providerresponsecode String
   status               status
+  deleted              Boolean     @default(false)
+  deletedat            DateTime?
 
   // Relations
-  user     user     @relation(fields: [userid], references: [userid])
-  cobranca cobranca @relation(fields: [cobrancaid], references: [cobrancaid])
+  user   user   @relation(fields: [userid], references: [iduser])
+  fatura fatura @relation(fields: [faturaid], references: [idfatura])
 
   @@index([userid])
-  @@index([cobrancaid])
+  @@index([faturaid])
 }
 
 /// contrato model manages recurring contracts with package, user, plan type, and renewal settings.
 model contrato {
-  contratoid   BigInt    @id @default(autoincrement())
-  datacriacao  DateTime  @default(now())
-  dataupdate   DateTime  @updatedAt
-  userid       BigInt
-  pacoteid     BigInt
-  tipoplano    String
-  saldociclo   Float
-  datainicio   DateTime
-  datafim      DateTime?
-  datacobranca DateTime
-  cobrancaauto Boolean
-  status       status
+  idcontrato  BigInt    @id @default(autoincrement())
+  datacriacao DateTime  @default(now())
+  dataupdate  DateTime  @updatedAt
+  userid      String
+  pacoteid    String
+  tipoplano   String
+  saldociclo  Float
+  datainicio  DateTime
+  datafim     DateTime?
+  datafatura  DateTime
+  faturaauto  Boolean
+  status      status
+  deleted     Boolean   @default(false)
+  deletedat   DateTime?
 
   // Relations
-  user   user   @relation(fields: [userid], references: [userid])
-  pacote pacote @relation(fields: [pacoteid], references: [pacoteid])
+  user   user   @relation(fields: [userid], references: [iduser])
+  pacote pacote @relation(fields: [pacoteid], references: [idpacote])
 
   @@index([userid])
   @@index([pacoteid])
 }
 
 model recuperacao {
-  id          BigInt   @id @default(autoincrement())
-  datacriacao DateTime @default(now())
-  token       String   @unique @db.VarChar(255)
-  expiracao   DateTime
+  idrecuperacao String    @id @default(uuid())
+  datacriacao   DateTime  @default(now())
+  token         String    @unique @db.VarChar(255)
+  expiracao     DateTime
+  userid        String
+  deleted       Boolean   @default(false)
+  deletedat     DateTime?
 
-  user   user   @relation(fields: [userid], references: [userid])
-  userid BigInt
+  // Relations
+  user user @relation(fields: [userid], references: [iduser])
+
+  @@index([userid])
 }
 
-/// enum for status (used in cobranca, pagamento, contrato)
+model token {
+  idtoken          String    @id @default(uuid())
+  tokenidpublico   String    @unique @db.VarChar(255)
+  datacriacao      DateTime  @default(now())
+  ip               String    @db.VarChar(255)
+  token            String    @unique @db.VarChar(255)
+  descricao        String    @db.VarChar(255)
+  ultimautilizacao DateTime
+  userid           String?
+  deleted          Boolean   @default(false)
+  deletedat        DateTime?
+
+  // Relations
+  user      user?      @relation(fields: [userid], references: [iduser])
+  consultas consulta[]
+
+  @@index([userid])
+}
+
+model consulta {
+  idconsulta  String    @id @default(uuid())
+  datacriacao DateTime  @default(now())
+  userid      String
+  cnpj        String?
+  cpf         String?
+  ip          String
+  pacoteid    String
+  origem      String
+  tokenid     String
+  deleted     Boolean   @default(false)
+  deletedat   DateTime?
+
+  // Relations
+  user       user                 @relation(fields: [userid], references: [iduser])
+  pacote     pacote               @relation(fields: [pacoteid], references: [idpacote])
+  token      token                @relation(fields: [tokenid], references: [idtoken])
+  relatorios relatorioconsultas[]
+
+  @@index([userid])
+  @@index([pacoteid])
+  @@index([tokenid])
+}
+
+model relatorioconsultas {
+  idrelatorioconsulta String    @id @default(uuid())
+  datacriacao         DateTime  @default(now())
+  consultaid          String
+  userid              String
+  pacoteid            String
+  deleted             Boolean   @default(false)
+  deletedat           DateTime?
+
+  // Relations
+  consulta consulta @relation(fields: [consultaid], references: [idconsulta])
+  user     user     @relation(fields: [userid], references: [iduser])
+  pacote   pacote   @relation(fields: [pacoteid], references: [idpacote])
+
+  @@index([consultaid])
+  @@index([userid])
+  @@index([pacoteid])
+}
+
+model errorsapi {
+  iderroapi        String    @id @default(uuid())
+  datacriacao      DateTime  @default(now())
+  userid           String
+  ip               String
+  pacoteid         String
+  origem           String
+  descricaoerro    String    @db.Text
+  descricaosolucao String    @db.Text
+  deleted          Boolean   @default(false)
+  deletedat        DateTime?
+
+  // Relations
+  user   user   @relation(fields: [userid], references: [iduser])
+  pacote pacote @relation(fields: [pacoteid], references: [idpacote])
+
+  @@index([userid])
+  @@index([pacoteid])
+}
+
+/// enum for status (used in fatura, transacao, contrato)
 enum status {
   concluida
   pendente
@@ -154,7 +260,7 @@ enum status {
   cancelamento
 }
 
-/// enum for payment method (used in cobranca, pagamento)
+/// enum for payment method (used in fatura, transacao)
 enum metodopagto {
   credito
   debito
@@ -169,104 +275,145 @@ enum role {
 }
 
 model cnae {
-  cnaeid      BigInt   @id @default(autoincrement())
+  idcnae      BigInt   @id @default(autoincrement())
   datacriacao DateTime @default(now())
-  codigo      String   @db.VarChar(20)
+  codigo      String   @unique @db.VarChar(20)
   descricao   String   @db.VarChar(500)
+
+  // Relations
+  estabelecimentosprincipal  estabelecimentos[] @relation("CnaePrincipal")
+  estabelecimentossecundario estabelecimentos[] @relation("CnaeSecundario")
 }
 
 model empresas {
-  empresaid                 BigInt   @id @default(autoincrement())
+  idempresa                 BigInt   @id @default(autoincrement())
   datacriacao               DateTime @default(now())
-  cnpjbasico                String?  @db.VarChar(8)
+  cnpjbasico                String   @unique @db.VarChar(8)
   razaosocial               String?  @db.VarChar(255)
   naturezajuridica          String?  @db.VarChar(255)
   qualificacaoresponsavel   String?  @db.VarChar(255)
   capitalsocial             String?  @db.VarChar(30)
   porteempresa              Int?
   entefederativoresponsavel String?  @db.VarChar(255)
+
+  // Relations
+  estabelecimentos estabelecimentos[]
+  socios           socios[]
+  simples          simples?
 }
 
 model estabelecimentos {
-  idestabelecimento         BigInt   @id @default(autoincrement())
-  datacriacao               DateTime @default(now())
-  cnpjbasico                String?  @db.VarChar(8)
-  cnpjordem                 String?  @db.VarChar(4)
-  cnpjdv                    String?  @db.VarChar(2)
+  idestabelecimento         BigInt    @id @default(autoincrement())
+  datacriacao               DateTime  @default(now())
+  cnpjbasico                String    @db.VarChar(8)
+  cnpjordem                 String?   @db.VarChar(4)
+  cnpjdv                    String?   @db.VarChar(2)
   identificadormatrizfilial Int?
-  nomefantasia              String?  @db.VarChar(255)
-  situacaocadastral         Int
-  datasituacaocadastral     String?  @db.VarChar(40)
+  nomefantasia              String?   @db.VarChar(255)
+  situacaocadastralid       BigInt
+  datasituacaocadastral     DateTime?
   motivosituacaocadastral   Int?
-  nomecidadeexterior        String?  @db.VarChar(255)
-  pais                      Int?
-  datainicioatividade       String?  @db.VarChar(40)
-  cnaefiscalprincipal       String?  @db.VarChar(255)
-  cnaefiscalsecundaria      String?  @db.VarChar(255)
-  tipologradouro            String?  @db.VarChar(255)
-  logradouro                String?  @db.VarChar(255)
-  numero                    String?  @db.VarChar(255)
-  complemento               String?  @db.VarChar(255)
-  bairro                    String?  @db.VarChar(255)
-  cep                       String?  @db.VarChar(20)
-  uf                        String?  @db.VarChar(2)
-  municipio                 String?  @db.VarChar(255)
-  ddd1                      String?  @db.VarChar(4)
-  telefone1                 String?  @db.VarChar(20)
-  ddd2                      String?  @db.VarChar(4)
-  telefone2                 String?  @db.VarChar(20)
-  dddfax                    String?  @db.VarChar(4)
-  fax                       String?  @db.VarChar(20)
-  correioeletronico         String?  @db.VarChar(255)
-  situacaoespecial          String?  @db.VarChar(255)
-  datasituacaoespecial      String?  @db.VarChar(40)
+  nomecidadeexterior        String?   @db.VarChar(255)
+  paisid                    Int?
+  datainicioatividade       DateTime?
+  cnaefiscalprincipalid     String?   @db.VarChar(20)
+  cnaefiscalsecundarioid    String?   @db.VarChar(20)
+  tipologradouro            String?   @db.VarChar(255)
+  logradouro                String?   @db.VarChar(255)
+  numero                    String?   @db.VarChar(255)
+  complemento               String?   @db.VarChar(255)
+  bairro                    String?   @db.VarChar(255)
+  cep                       String?   @db.VarChar(20)
+  uf                        String?   @db.VarChar(2)
+  municipioid               String?   @db.VarChar(10)
+  ddd1                      String?   @db.VarChar(4)
+  telefone1                 String?   @db.VarChar(20)
+  ddd2                      String?   @db.VarChar(4)
+  telefone2                 String?   @db.VarChar(20)
+  dddfax                    String?   @db.VarChar(4)
+  fax                       String?   @db.VarChar(20)
+  correioeletronico         String?   @db.VarChar(255)
+  situacaoespecial          String?   @db.VarChar(255)
+  datasituacaoespecial      DateTime?
+
+  // Relations
+  empresa        empresas          @relation(fields: [cnpjbasico], references: [cnpjbasico])
+  cnaePrincipal  cnae?             @relation("CnaePrincipal", fields: [cnaefiscalprincipalid], references: [codigo])
+  cnaeSecundario cnae?             @relation("CnaeSecundario", fields: [cnaefiscalsecundarioid], references: [codigo])
+  situacao       situacaocadastral @relation(fields: [situacaocadastralid], references: [idsituacaocadastral])
+  municipio      municipios?       @relation(fields: [municipioid], references: [codigo])
+
+  // Composite unique constraint for CNPJ
+  @@unique([cnpjbasico, cnpjordem, cnpjdv])
+  @@index([cnpjbasico])
+  @@index([cnaefiscalprincipalid])
+  @@index([cnaefiscalsecundarioid])
+  @@index([situacaocadastralid])
+  @@index([municipioid])
 }
 
 model simples {
-  simplesid             BigInt   @id @default(autoincrement())
-  datacriacao           DateTime @default(now())
-  cnpjbasico            String?  @db.Char(8)
-  opcopelosimples       String?  @db.Char(1)
-  dataopcelosimples     String?  @db.VarChar(40)
-  dataexclusaodosimples String?  @db.VarChar(40)
-  opcopelomei           String?  @db.VarChar(3)
-  dataopcelomei         String?  @db.VarChar(40)
-  dataexclusaodomei     String?  @db.VarChar(40)
+  idsimples             BigInt    @id @default(autoincrement())
+  datacriacao           DateTime  @default(now())
+  cnpjbasico            String    @unique @db.Char(8)
+  opcopelosimples       String?   @db.Char(1)
+  dataopcelosimples     DateTime?
+  dataexclusaodosimples DateTime?
+  opcopelomei           String?   @db.VarChar(3)
+  dataopcelomei         DateTime?
+  dataexclusaodomei     DateTime?
+
+  // Relation
+  empresa empresas @relation(fields: [cnpjbasico], references: [cnpjbasico])
+
+  @@index([cnpjbasico])
 }
 
 model socios {
-  socioid                   BigInt   @id @default(autoincrement())
-  datacriacao               DateTime @default(now())
-  cnpjbasico                String?  @db.Char(8)
+  idsocio                   BigInt    @id @default(autoincrement())
+  datacriacao               DateTime  @default(now())
+  cnpjbasico                String    @db.Char(8)
   identificadorsocio        Int?
-  nomesocio                 String?  @db.VarChar(255)
-  cnpjcpfsocio              String?  @db.VarChar(14)
+  nomesocio                 String?   @db.VarChar(255)
+  cnpjcpfsocio              String?   @db.VarChar(14)
   qualificacaosocio         Int?
-  dataentradasociedade      String?  @db.VarChar(40)
-  pais                      Int?
-  representantelegal        String?  @db.VarChar(11)
-  nomerepresentante         String?  @db.VarChar(255)
+  dataentradasociedade      DateTime?
+  paisid                    Int?
+  representantelegal        String?   @db.VarChar(11)
+  nomerepresentante         String?   @db.VarChar(255)
   qualificacaorepresentante Int?
   faixaetaria               Int?
+
+  // Relation
+  empresa empresas @relation(fields: [cnpjbasico], references: [cnpjbasico])
+
+  @@index([cnpjbasico])
+  @@index([cnpjcpfsocio])
 }
 
 model municipios {
-  municipioid BigInt   @id @default(autoincrement())
+  idmunicipio BigInt   @id @default(autoincrement())
   datacriacao DateTime @default(now())
-  codigo      String?  @db.VarChar(10)
-  descricao   String?  @db.VarChar(255)
+  codigo      String   @unique @db.VarChar(10)
+  descricao   String   @db.VarChar(255)
+
+  // Relation
+  estabelecimentos estabelecimentos[]
 }
 
 model naturezas {
-  naturezaid  BigInt   @id @default(autoincrement())
+  idnatureza  BigInt   @id @default(autoincrement())
   datacriacao DateTime @default(now())
-  codigo      String?  @db.VarChar(10)
-  descricao   String?  @db.VarChar(255)
+  codigo      String   @unique @db.VarChar(10)
+  descricao   String   @db.VarChar(255)
 }
 
 model situacaocadastral {
-  situacaoid  BigInt   @id @default(autoincrement())
-  datacriacao DateTime @default(now())
-  codigo      String?  @db.VarChar(10)
-  descricao   String?  @db.VarChar(255)
+  idsituacaocadastral BigInt   @id @default(autoincrement())
+  datacriacao         DateTime @default(now())
+  codigo              String?  @db.VarChar(10)
+  descricao           String?  @db.VarChar(255)
+
+  // Relation
+  estabelecimentos estabelecimentos[]
 }

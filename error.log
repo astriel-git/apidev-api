@@ -188,3 +188,250 @@ Please make sure your database server is running at `localhost:5432`.
     at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:21:15)
     at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:28:18)
     at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-03-27T12:48:37.340Z] error: PrismaClientInitializationError: 
+Invalid `prisma.user.findFirst()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+    at _n.handleRequestError (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:121:8049)
+    at _n.handleAndLogRequestError (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:121:7057)
+    at _n.request (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:121:6741)
+    at async l (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:130:9355)
+    at async Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:16:27)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:28:18)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-03-27T12:49:08.387Z] error: PrismaClientInitializationError: 
+Invalid `prisma.user.findFirst()` invocation:
+
+
+Error querying the database: FATAL: the database system is starting up
+    at _n.handleRequestError (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:121:8049)
+    at _n.handleAndLogRequestError (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:121:7057)
+    at _n.request (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:121:6741)
+    at async l (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\@prisma\client\runtime\library.js:130:9355)
+    at async Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:16:27)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:28:18)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-03-27T19:20:50.375Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+[2025-03-27T19:21:06.074Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+[2025-03-27T19:22:22.542Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+[2025-03-27T19:35:21.349Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+[2025-03-27T19:36:11.119Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+[2025-03-27T19:45:03.721Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+[2025-03-27T20:20:11.233Z] error: Error: CPF ou Email não cadastrados.
+    at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:21:15)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:28:18)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-03-30T17:47:24.210Z] error: Error: CPF ou Email não cadastrados.
+    at Object.login (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/data-access/userRepo.ts:21:15)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:28:18)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-03-31T13:14:25.920Z] error: Error: Name, email, and senha are required.
+    at Module.findSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/services/saldoService.ts:7:11)
+    at userSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/controllers/saldoControllers.ts:11:39)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+[2025-03-31T13:16:59.497Z] error: Error: Name, email, and senha are required.
+    at Module.findSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/services/saldoService.ts:7:11)
+    at userSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/controllers/saldoControllers.ts:11:39)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+[2025-03-31T13:18:33.876Z] error: Error: Name, email, and senha are required.
+    at Module.findSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/services/saldoService.ts:7:11)
+    at userSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/controllers/saldoControllers.ts:11:39)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+[2025-04-01T13:53:35.973Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-01T13:54:58.799Z] error: Error: Name, email, and senha are required.
+    at Module.findSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/services/saldoService.ts:7:11)
+    at userSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/controllers/saldoControllers.ts:11:39)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+[2025-04-01T13:55:01.072Z] error: Error: Name, email, and senha are required.
+    at Module.findSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/services/saldoService.ts:7:11)
+    at userSaldos (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Saldos/controllers/saldoControllers.ts:11:39)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+[2025-04-01T14:33:17.592Z] error: Error: reCAPTCHA verification failed: DUPE
+    at verifyRecaptcha (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/recaptcha-enterprise.ts:36:11)
+    at async Module.loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/services/userService.ts:17:21)
+    at async loginUser (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Users/controllers/userControllers.ts:13:20)
+[2025-04-02T12:32:27.623Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-02T12:33:10.540Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-02T12:47:58.812Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-02T12:51:22.242Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-02T12:51:45.459Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-14T15:21:03.246Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-14T15:21:07.503Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)

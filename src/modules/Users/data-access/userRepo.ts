@@ -14,7 +14,7 @@ export const user = {
     try {
       const identifier = dados.identificador;
       const loginRecord = await prisma.user.findFirst({
-        select: { userid: true, role: true, nome: true, email: true, senha: true, cpf: true },
+        select: { iduser: true, role: true, nome: true, email: true, senha: true, cpf: true },
         where: { OR: [{ email: identifier }, { cpf: identifier }] },
       });
       if (!loginRecord) {
@@ -25,7 +25,7 @@ export const user = {
         throw new UnauthorizedError('Senha Incorreta');
       }
       const publicUser: UserInterface.PublicUser = {
-        userid: Number(loginRecord.userid),
+        iduser: Number(loginRecord.iduser),
         role: loginRecord.role,
         nome: loginRecord.nome,
       };
@@ -51,10 +51,11 @@ export const user = {
           senha: hashedPassword,
           datanascimento: dados.datanascimento,
           razaosocial: dados?.razaosocial,
+          
         },
       });
       const registeredUser: UserInterface.RegisterResponse = {
-        userid: newUser.userid,
+        iduser: newUser.iduser,
         role: newUser.role,
         nome: newUser.nome,
         email: newUser.email,
@@ -86,7 +87,7 @@ export const user = {
         data: {
           token: recoveryToken,
           expiracao: tokenExpires,
-          user: { connect: { userid: userFound.userid } },
+          user: { connect: { iduser: userFound.iduser } },
         },
       });
       const frontendUrl = process.env.FRONTEND_URL;
@@ -115,11 +116,11 @@ export const user = {
 
       const hashedPassword = await bcrypt.hash(dados.newPassword, SALT_ROUNDS);
       await prisma.user.update({
-        where: { userid: recoveryRecord.userid },
+        where: { iduser: recoveryRecord.userid },
         data: { senha: hashedPassword },
       });
       await prisma.recuperacao.delete({
-        where: { id: recoveryRecord.id },
+        where: { idrecuperacao: recoveryRecord.idrecuperacao },
       });
 
       return { message: 'Password reset successfully.' };
