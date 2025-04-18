@@ -7,221 +7,262 @@ import pkg from 'pg';
 const { Client } = pkg;
 import type { Client as ClientType } from 'pg';
 
+dotenv.config();
 
-dotenv.config(); // Load environment variables
+interface DatabaseConfig {
+  connectionString: string;
+  maxConnections?: number;
+  idleTimeoutMillis?: number;
+}
+
+interface ImportProgress {
+  total: number;
+  processed: number;
+  currentFile: string;
+  status: 'processing' | 'completed' | 'error';
+  error?: string;
+}
+
+interface TableSchema {
+  [key: string]: {
+    columns: string[];
+    primaryKey?: string;
+    indexes?: string[];
+  };
+}
+
+const TABLE_SCHEMAS: TableSchema = {
+  empresa: {
+    columns: [
+      'cnpj_basico',
+      'razao_social',
+      'natureza_juridica',
+      'qualificacao_responsavel',
+      'capital_social',
+      'porte_empresa',
+      'ente_federativo_responsavel'
+    ],
+    primaryKey: 'cnpj_basico'
+  },
+  estabelecimento: {
+    columns: [
+      'cnpj_basico',
+      'cnpj_ordem',
+      'cnpj_dv',
+      'identificador_matriz_filial',
+      'nome_fantasia',
+      'situacao_cadastral',
+      'data_situacao_cadastral',
+      'motivo_situacao_cadastral',
+      'nome_cidade_exterior',
+      'pais',
+      'data_inicio_atividade',
+      'cnae_fiscal_principal',
+      'cnae_fiscal_secundaria',
+      'tipo_logradouro',
+      'logradouro',
+      'numero',
+      'complemento',
+      'bairro',
+      'cep',
+      'uf',
+      'municipio',
+      'ddd_1',
+      'telefone_1',
+      'ddd_2',
+      'telefone_2',
+      'ddd_fax',
+      'fax',
+      'correio_eletronico',
+      'situacao_especial',
+      'data_situacao_especial'
+    ],
+    indexes: ['cnpj_basico']
+  },
+  socios: {
+    columns: [
+      'cnpj_basico',
+      'identificador_socio',
+      'nome_socio_razao_social',
+      'cpf_cnpj_socio',
+      'qualificacao_socio',
+      'data_entrada_sociedade',
+      'pais',
+      'representante_legal',
+      'nome_do_representante',
+      'qualificacao_representante_legal',
+      'faixa_etaria'
+    ],
+    indexes: ['cnpj_basico']
+  },
+  socios: {
+    columns: [
+      'cnpj_basico',
+      'opcao_pelo_simples',
+      'data_opcao_simples',
+      'data_exclusao_simples',
+      'opcao_mei',
+      'data_opcao_mei',
+      'data_exclusao_mei'
+    ],
+    indexes: ['cnpj_basico']
+  },
+  cnae: {
+    columns: [
+      'codigo',
+      'descricao'
+    ],
+    indexes: ['codigo']
+  },
+  moti: {
+    columns: [
+      'codigo',
+      'descricao'
+    ],
+    indexes: ['codigo']
+  },
+  munic: {
+    columns: [
+      'codigo',
+      'descricao'
+    ],
+    indexes: ['codigo']
+  },
+  natju: {
+    columns: [
+      'codigo',
+      'descricao'
+    ],
+    indexes: ['codigo']
+  },
+  pais: {
+    columns: [
+      'codigo',
+      'descricao'
+    ],
+    indexes: ['codigo']
+  },
+  quals: {
+    columns: [
+      'codigo',
+      'descricao'
+    ],
+    indexes: ['codigo']
+  },
+};
 
 /**
- * Connects to PostgreSQL.
- * @returns {Promise<Client>} - The PostgreSQL client.
+ * Connects to PostgreSQL with improved error handling and configuration
  */
-async function connectDB(): Promise<ClientType> {
+async function connectDB(config: DatabaseConfig = { connectionString: process.env.DATABASE_URL! }): Promise<ClientType> {
   const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+    ...config,
+    connectionString: config.connectionString,
   });
 
   try {
     await client.connect();
-    console.log('Connected to PostgreSQL database successfully.');
+    console.log('Connected to PostgreSQL database successfully');
     return client;
   } catch (error: any) {
-    console.error('Error connecting to PostgreSQL:', error.message);
+    console.error('Error connecting to PostgreSQL:', {
+      message: error.message,
+      code: error.code,
+      stack: error.stack
+    });
+    throw new Error(`Database connection failed: ${error.message}`);
+  }
+}
+
+/**
+ * Creates a table based on the category with improved schema handling
+ */
+async function createTable(client: ClientType, category: string): Promise<void> {
+  console.log("This is what vcategory looks like", category);
+  const schema = TABLE_SCHEMAS[category];
+  if (!schema) {
+    throw new Error(`No schema defined for category: ${category}`);
+  }
+
+  const columns = schema.columns.map(col => `"${col}" VARCHAR`).join(',\n  ');
+  const primaryKey = schema.primaryKey ? `,\n  PRIMARY KEY ("${schema.primaryKey}")` : '';
+  const indexes = schema.indexes?.map(idx => `CREATE INDEX IF NOT EXISTS idx_${category}_${idx} ON "${category}" ("${idx}");`).join('\n') || '';
+
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS "${category}" (
+      ${columns}${primaryKey}
+    );
+    ${indexes}
+  `;
+
+  try {
+    await client.query('BEGIN');
+    await client.query(createTableQuery);
+    await client.query('COMMIT');
+    console.log(`Table "${category}" created successfully with indexes`);
+  } catch (error: any) {
+    await client.query('ROLLBACK');
+    console.error(`Error creating table "${category}":`, {
+      message: error.message,
+      query: createTableQuery
+    });
     throw error;
   }
 }
 
 /**
- * Creates a table based on the category.
- * @param client - The PostgreSQL client.
- * @param category - The data category.
+ * Inserts data into the specified table with improved error handling and batch processing
  */
-async function createTable(client: ClientType, category: string): Promise<void> {
-  let createTableQuery = '';
-
-  switch (category) {
-    case 'empresa':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS empresa (
-          cnpj_basico VARCHAR PRIMARY KEY,
-          razao_social VARCHAR,
-          natureza_juridica VARCHAR,
-          qualificacao_responsavel VARCHAR,
-          capital_social FLOAT,
-          porte_empresa INTEGER,
-          ente_federativo_responsavel VARCHAR
-        );
-      `;
-      break;
-
-    case 'estabelecimento':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS estabelecimento (
-          cnpj_basico VARCHAR,
-          cnpj_ordem VARCHAR,
-          cnpj_dv VARCHAR,
-          identificador_matriz_filial VARCHAR,
-          nome_fantasia VARCHAR,
-          situacao_cadastral VARCHAR,
-          data_situacao_cadastral DATE,
-          motivo_situacao_cadastral VARCHAR,
-          nome_cidade_exterior VARCHAR,
-          pais VARCHAR,
-          data_inicio_atividade DATE,
-          cnae_fiscal_principal VARCHAR,
-          cnae_fiscal_secundaria VARCHAR,
-          tipo_logradouro VARCHAR,
-          logradouro VARCHAR,
-          numero VARCHAR,
-          complemento VARCHAR,
-          bairro VARCHAR,
-          cep VARCHAR,
-          uf VARCHAR,
-          municipio VARCHAR,
-          ddd_1 VARCHAR,
-          telefone_1 VARCHAR,
-          ddd_2 VARCHAR,
-          telefone_2 VARCHAR,
-          ddd_fax VARCHAR,
-          fax VARCHAR,
-          correio_eletronico VARCHAR,
-          situacao_especial VARCHAR,
-          data_situacao_especial DATE
-        );
-      `;
-      break;
-
-    case 'socios':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS socios (
-          cnpj_basico VARCHAR,
-          identificador_socio INTEGER,
-          nome_socio_razao_social VARCHAR,
-          cpf_cnpj_socio VARCHAR,
-          qualificacao_socio VARCHAR,
-          data_entrada_sociedade DATE,
-          pais VARCHAR,
-          representante_legal VARCHAR,
-          nome_do_representante VARCHAR,
-          qualificacao_representante_legal VARCHAR,
-          faixa_etaria INTEGER
-        );
-      `;
-      break;
-
-    case 'simples':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS simples (
-          cnpj_basico VARCHAR,
-          opcao_pelo_simples VARCHAR,
-          data_opcao_simples DATE,
-          data_exclusao_simples DATE,
-          opcao_mei VARCHAR,
-          data_opcao_mei DATE,
-          data_exclusao_mei DATE
-        );
-      `;
-      break;
-
-    case 'cnae':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS cnae (
-          codigo VARCHAR PRIMARY KEY,
-          descricao VARCHAR
-        );
-      `;
-      break;
-
-    case 'moti':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS moti (
-          codigo INTEGER PRIMARY KEY,
-          descricao VARCHAR
-        );
-      `;
-      break;
-
-    case 'munic':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS munic (
-          codigo INTEGER PRIMARY KEY,
-          descricao VARCHAR
-        );
-      `;
-      break;
-
-    case 'natju':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS natju (
-          codigo INTEGER PRIMARY KEY,
-          descricao VARCHAR
-        );
-      `;
-      break;
-
-    case 'pais':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS pais (
-          codigo INTEGER PRIMARY KEY,
-          descricao VARCHAR
-        );
-      `;
-      break;
-
-    case 'quals':
-      createTableQuery = `
-        CREATE TABLE IF NOT EXISTS quals (
-          codigo INTEGER PRIMARY KEY,
-          descricao VARCHAR
-        );
-      `;
-      break;
-
-    default:
-      console.error(`No table schema defined for category: ${category}`);
-      break;
-  }
-
-  if (createTableQuery) {
-    try {
-      await client.query(createTableQuery);
-      await client.query('COMMIT;');
-      console.log(`Table "${category}" created successfully.`);
-    } catch (error: any) {
-      console.error(`Error creating table "${category}":`, error.message);
-    }
-  }
-}
-
-/**
- * Inserts data into the specified table.
- * @param client - The PostgreSQL client.
- * @param data - Array of objects representing rows.
- * @param tableName - The target table.
- */
-async function insertData(client: ClientType, data: Array<any>, tableName: string): Promise<void> {
+async function insertData(
+  client: ClientType,
+  data: Array<Record<string, any>>,
+  tableName: string,
+  batchSize: number = 1000
+): Promise<void> {
   if (data.length === 0) return;
 
-  const columns = Object.keys(data[0]).map((col) => `"${col}"`).join(', ');
-  const values: any[] = [];
-  const placeholders = data
-    .map((_, i) => {
-      const index = i * Object.keys(data[0]).length;
-      return `(${Object.keys(data[0]).map((_, j) => `$${index + j + 1}`).join(', ')})`;
-    })
-    .join(', ');
+  console.log('table name', tableName)
 
-  data.forEach((row) => {
-    Object.values(row).forEach((value) => {
-      values.push(value);
+  const schema = TABLE_SCHEMAS[tableName];
+  if (!schema) {
+    throw new Error(`No schema defined for table: ${tableName}`);
+  }
+
+  const columns = schema.columns.map(col => `"${col}"`).join(', ');
+  
+  for (let i = 0; i < data.length; i += batchSize) {
+    const batch = data.slice(i, i + batchSize);
+    const values: any[] = [];
+    const placeholders = batch
+      .map((_, rowIndex) => {
+        const startIndex = rowIndex * schema.columns.length;
+        return `(${schema.columns.map((_, colIndex) => `$${startIndex + colIndex + 1}`).join(', ')})`;
+      })
+      .join(', ');
+
+    batch.forEach(row => {
+      schema.columns.forEach(col => {
+        values.push(row[col] ?? null);
+      });
     });
-  });
 
-  const query = `INSERT INTO "${tableName}" (${columns}) VALUES ${placeholders} ON CONFLICT DO NOTHING;`;
+    const query = `
+      INSERT INTO "${tableName}" (${columns})
+      VALUES ${placeholders}
+      ON CONFLICT DO NOTHING;
+    `;
 
-  try {
-    await client.query(query, values);
-    console.log(`Inserted ${data.length} records into "${tableName}".`);
-  } catch (error: any) {
-    console.error(`Error inserting into "${tableName}":`, error.message);
+    try {
+      await client.query(query, values);
+      console.log(`Inserted ${batch.length} records into "${tableName}" (batch ${i / batchSize + 1})`);
+    } catch (error: any) {
+      console.error(`Error inserting batch into "${tableName}":`, {
+        message: error.message,
+        batchSize: batch.length,
+        startIndex: i
+      });
+      throw error;
+    }
   }
 }
 
@@ -362,6 +403,7 @@ async function processFile(client: ClientType, filePath: string, category: strin
         }
 
         results.push(transformed);
+        console.log(`Look dude`, category);
       })
       .on('end', async () => {
         try {

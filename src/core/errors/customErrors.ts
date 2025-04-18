@@ -118,3 +118,14 @@ export class PrismaClientError extends BaseError {
     this.details = prismaError;
   }
 }
+
+
+export class UpstreamServerFailure extends BaseError {
+  constructor(
+    message: string = 'Falha ao obter dados de um serviço externo.'
+  ) {
+    // 502 Bad Gateway––since it's an upstream service failure
+    super(message, 502);
+    this.name = 'FetchDatesError';
+  }
+}

@@ -1,46 +1,60 @@
 // src/libraries/downloader/src/downloader.ts
 import fs from 'fs-extra';
 import path from 'path';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import cliProgress from 'cli-progress';
 import * as cheerio from 'cheerio';
 
-export type ProgressCallback = (message: string) => void;
+export interface DownloadProgress {
+  fileName: string;
+  progress: number;
+  status: 'downloading' | 'completed' | 'error';
+  error?: string;
+}
+
+export type ProgressCallback = (progress: DownloadProgress) => void;
+
+interface FileInfo {
+  url: string;
+  fileName: string;
+  size: number;
+}
+
+const MAX_RETRIES = 3;
+const RETRY_DELAY = 5000; // 5 seconds
 
 /**
- * Checks if a file needs to be downloaded based on its size.
- * @param url - The URL of the file.
- * @param filePath - The local file path.
- * @returns Whether to download the file.
+ * Checks if a file needs to be downloaded based on its size and last modified date.
  */
 async function checkDiff(url: string, filePath: string): Promise<boolean> {
   if (!fs.existsSync(filePath)) {
-    return true; // File does not exist
+    return true;
   }
 
   try {
     const response = await axios.head(url);
     const newSize = parseInt(response.headers['content-length'] || '0', 10);
+    const newLastModified = response.headers['last-modified'];
     const stats = await fs.stat(filePath);
     const oldSize = stats.size;
+    const oldLastModified = stats.mtime.toUTCString();
 
-    if (newSize !== oldSize) {
+    if (newSize !== oldSize || newLastModified !== oldLastModified) {
       await fs.remove(filePath);
-      return true; // Sizes differ
+      return true;
     }
 
-    return false; // Sizes are the same
-  } catch (error: any) {
-    console.error(`Error checking file difference for ${url}:`, error.message);
+    return false;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.error(`Error checking file difference for ${url}:`, error.message);
+    }
     return false;
   }
 }
 
 /**
- * Downloads a file with a progress callback.
- * @param url - The URL of the file.
- * @param outputDir - The directory to save the file.
- * @param onProgress - Callback to send progress updates.
+ * Downloads a file with retry mechanism and progress tracking.
  */
 async function downloadFile(
   url: string,
@@ -49,90 +63,156 @@ async function downloadFile(
 ): Promise<void> {
   const fileName = path.basename(url);
   const filePath = path.join(outputDir, fileName);
+  let retryCount = 0;
 
   const shouldDownload = await checkDiff(url, filePath);
   if (!shouldDownload) {
-    onProgress && onProgress(`File "${fileName}" is already up to date. Skipping download.`);
+    onProgress?.({
+      fileName,
+      progress: 100,
+      status: 'completed'
+    });
     return;
   }
 
-  try {
-    const response = await axios({
-      method: 'GET',
-      url,
-      responseType: 'stream'
-    });
+  while (retryCount < MAX_RETRIES) {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url,
+        responseType: 'stream',
+        timeout: 30000, // 30 seconds timeout
+        validateStatus: (status) => status === 200
+      });
 
-    const totalLength = parseInt(response.headers['content-length'], 10);
-    let downloaded = 0;
+      const totalLength = parseInt(response.headers['content-length'], 10);
+      let downloaded = 0;
 
-    onProgress && onProgress(`Starting download of "${fileName}"...`);
-    const progressBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
-    progressBar.start(totalLength, 0);
+      onProgress?.({
+        fileName,
+        progress: 0,
+        status: 'downloading'
+      });
 
-    const writer = fs.createWriteStream(filePath);
-    const dataStream = response.data as NodeJS.ReadableStream;
-    dataStream.on('data', (chunk: Buffer) => {
-      downloaded += chunk.length;
-      progressBar.update(downloaded);
+      const progressBar = new cliProgress.SingleBar(
+        {
+          format: '{bar} {percentage}% | {value}/{total} bytes | ETA: {eta}s',
+          barCompleteChar: '\u2588',
+          barIncompleteChar: '\u2591',
+          hideCursor: true
+        },
+        cliProgress.Presets.shades_classic
+      );
 
-      // Send download progress as a percentage
-      const progress = Math.round((downloaded / totalLength) * 100);
-      onProgress && onProgress(`Downloading "${fileName}": ${progress}%`);
-    });
+      progressBar.start(totalLength, 0);
 
-    (response.data as NodeJS.ReadableStream).pipe(writer);
+      const writer = fs.createWriteStream(filePath);
+      const dataStream = response.data as NodeJS.ReadableStream;
 
-    await new Promise<void>((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
-    });
+      dataStream.on('data', (chunk: Buffer) => {
+        downloaded += chunk.length;
+        progressBar.update(downloaded);
+        const progress = Math.round((downloaded / totalLength) * 100);
+        onProgress?.({
+          fileName,
+          progress,
+          status: 'downloading'
+        });
+      });
 
-    progressBar.stop();
-    onProgress && onProgress(`Downloaded "${fileName}" successfully.`);
-  } catch (error: any) {
-    onProgress && onProgress(`Error downloading "${fileName}": ${error.message}`);
+      await new Promise<void>((resolve, reject) => {
+        writer.on('finish', resolve);
+        writer.on('error', reject);
+        dataStream.pipe(writer);
+      });
+
+      progressBar.stop();
+      onProgress?.({
+        fileName,
+        progress: 100,
+        status: 'completed'
+      });
+      return;
+    } catch (error) {
+      retryCount++;
+      if (retryCount === MAX_RETRIES) {
+        onProgress?.({
+          fileName,
+          progress: 0,
+          status: 'error',
+          error: error instanceof Error ? error.message : 'Unknown error'
+        });
+        throw error;
+      }
+      await new Promise(resolve => setTimeout(resolve, RETRY_DELAY));
+    }
   }
 }
 
 /**
- * Fetches all files for the specified categories and downloads them.
- * @param baseUrl - The base URL to build the file URLs.
- * @param outputDir - The directory to save the files.
- * @param categories - List of categories selected for download.
- * @param onProgress - Callback to send progress updates.
+ * Fetches and downloads files for specified categories with improved error handling and case-insensitive matching.
  */
 async function downloadFilesForCategories(
   baseUrl: string,
   outputDir: string,
   categories: string[],
   onProgress?: ProgressCallback
-): Promise<void> {
+): Promise<FileInfo[]> {
   try {
-    const { data } = await axios.get<string>(baseUrl);
-    const $ = cheerio.load(data);
-    const filesToDownload: string[] = [];
+    const { data } = await axios.get<string>(baseUrl, {
+      timeout: 10000,
+      validateStatus: (status) => status === 200
+    });
 
-    // Find all files related to the selected categories
+    const $ = cheerio.load(data);
+    const filesToDownload: FileInfo[] = [];
+
+    // Prepare lowercase categories for case-insensitive matching
+    const targetCats = categories.map(c => c.toLowerCase());
+
     $('a').each((_, element) => {
       const href = $(element).attr('href');
-      if (href) {
-        categories.forEach((category) => {
-          if (href.startsWith(category) && href.endsWith('.zip')) {
-            filesToDownload.push(`${baseUrl}${href}`);
-          }
-        });
+      if (!href || !href.toLowerCase().endsWith('.zip')) {
+        return;
+      }
+
+      const nameLower = href.toLowerCase();
+      for (const cat of targetCats) {
+        if (nameLower.startsWith(cat)) {
+          filesToDownload.push({
+            url: `${baseUrl}${href}`,
+            fileName: href,
+            size: 0
+          });
+          break; // stop after the first matching category
+        }
       }
     });
 
-    // Download each file and emit progress
-    for (const fileUrl of filesToDownload) {
-      await downloadFile(fileUrl, outputDir, onProgress);
+    if (filesToDownload.length === 0) {
+      throw new Error('No files found for the selected categories');
     }
-    onProgress && onProgress('All selected category files downloaded successfully.');
-  } catch (error: any) {
-    console.error(`Error fetching files for categories: ${error.message}`);
-    onProgress && onProgress(`Error fetching files: ${error.message}`);
+
+    const downloadedFiles: FileInfo[] = [];
+    for (const file of filesToDownload) {
+      try {
+        await downloadFile(file.url, outputDir, onProgress);
+        const stats = await fs.stat(path.join(outputDir, file.fileName));
+        downloadedFiles.push({
+          ...file,
+          size: stats.size
+        });
+      } catch (error) {
+        console.error(`Failed to download ${file.fileName}:`, error);
+        throw error;
+      }
+    }
+
+    return downloadedFiles;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.error('Network error:', error.message);
+    }
     throw error;
   }
 }

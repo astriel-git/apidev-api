@@ -435,3 +435,396 @@ Error querying the database: FATAL: the database system is starting up
     at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
     at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
     at processImmediate (node:internal/timers:513:21)
+[2025-04-17T23:03:51.310Z] error: ReferenceError: dados is not defined
+    at Module.fetchDates (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:7:40)
+    at fetchDates (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:12:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+[2025-04-17T23:04:32.215Z] error: ReferenceError: res is not defined
+    at Object.fetchDates (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:33:7)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.fetchDates (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:7:18)
+    at async fetchDates (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:12:20)
+[2025-04-18T19:47:39.983Z] error: ErrorID: w274gebb31k - next is not a function
+[2025-04-18T19:48:13.943Z] error: ErrorID: 39uf8bxor22 - next is not a function
+[2025-04-18T19:50:24.109Z] error: TypeError: schema.parse is not a function
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:47:12)
+[2025-04-18T19:52:16.219Z] error: TypeError: schema.parse is not a function
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:47:12)
+[2025-04-18T19:54:15.206Z] error: TypeError: schema.parse is not a function
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:47:12)
+[2025-04-18T20:30:55.975Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.util.objectKeys.Object.keys.keys [as objectKeys] (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:31:27)
+    at ZodObject._getCached (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:2494:27)
+    at ZodObject._parse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:2509:49)
+    at ZodObject._parse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:2525:37)
+    at ZodObject._parseSync (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:649:29)
+    at ZodObject.safeParse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:679:29)
+    at ZodObject.parse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:660:29)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T20:40:00.462Z] error: TypeError: utilService.downloadFilesForCategories is not a function
+    at downloadFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+[2025-04-18T20:47:41.217Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:88:13)
+    at Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:29)
+    at downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T20:50:20.567Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:88:13)
+    at Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:29)
+    at downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T20:54:51.111Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:95:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:18)
+    at async downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:20)
+[2025-04-18T20:56:30.158Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:95:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:18)
+    at async downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:20)
+[2025-04-18T20:56:40.385Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:95:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:18)
+    at async downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:20)
+[2025-04-18T20:56:51.347Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:95:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:18)
+    at async downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:20)
+[2025-04-18T20:58:45.454Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:95:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:18)
+    at async downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:20)
+[2025-04-18T20:59:58.118Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:95:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:18)
+    at async downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:20)
+[2025-04-18T21:29:51.640Z] error: TypeError: Cannot read properties of undefined (reading 'parse')
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:47:12)
+[2025-04-18T21:32:06.400Z] error: TypeError: keyValidator._parse is not a function
+    at ZodObject._parse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:2525:37)
+    at ZodObject._parseSync (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:649:29)
+    at ZodObject.safeParse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:679:29)
+    at ZodObject.parse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:660:29)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+[2025-04-18T21:33:15.143Z] error: TypeError: keyValidator._parse is not a function
+    at ZodObject._parse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:2525:37)
+    at ZodObject._parseSync (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:649:29)
+    at ZodObject.safeParse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:679:29)
+    at ZodObject.parse (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/node_modules/zod/lib/index.mjs:660:29)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+[2025-04-18T21:33:52.315Z] error: TypeError: The "paths[3]" argument must be of type string. Received undefined
+    at Object.resolve (node:path:182:9)
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:105:26)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-18T21:34:49.677Z] error: TypeError: The "paths[3]" argument must be of type string. Received undefined
+    at Object.resolve (node:path:182:9)
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:105:26)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-18T21:36:19.439Z] error: TypeError: The "paths[3]" argument must be of type string. Received undefined
+    at Object.resolve (node:path:182:9)
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:105:26)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-18T21:39:34.305Z] error: TypeError: The "paths[3]" argument must be of type string. Received undefined
+    at Object.resolve (node:path:182:9)
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:105:26)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-18T21:40:49.091Z] error: TypeError: files is not iterable
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:100:31)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T21:43:05.358Z] error: ReferenceError: fs is not defined
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:104:5)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T21:43:40.536Z] error: TypeError: fs.ensureDir is not a function
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:105:14)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T21:45:19.610Z] error: TypeError: The "path" argument must be of type string. Received undefined
+    at Object.isAbsolute (node:path:446:5)
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:117:28)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-18T21:47:15.598Z] error: TypeError: Cannot destructure property 'fileName' of 'request' as it is undefined.
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:90:13)
+    at Module.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:40:29)
+    at unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T22:16:54.092Z] error: Error: ENOENT: no such file or directory, open 'C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\downloader\downloaded\2025-03\Cnaes.zip'
+[2025-04-18T22:16:54.095Z] error: Error: Failed to download files from Receita Federal
+    at Object.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:83:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:29:18)
+    at async downloadCategoriesFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:39:20)
+[2025-04-18T22:18:10.927Z] error: Error: Invalid ZIP file
+    at unzipFile (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/utils/unzipper/src/unzipper.ts:56:13)
+    at async Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:123:7)
+    at async unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:20)
+[2025-04-18T22:18:10.932Z] error: Error: Failed to unzip file: Cnae
+    at Object.unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:127:13)
+    at async unzipFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:52:20)
+[2025-04-18T22:18:23.410Z] error: ErrorID: 72rhukpkx3e - EISDIR: illegal operation on a directory, read
+[2025-04-18T22:24:58.915Z] error: TypeError: Cannot read properties of undefined (reading 'parse')
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:47:12)
+[2025-04-18T22:35:05.177Z] error: TypeError: Cannot read properties of undefined (reading 'parse')
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:16:14
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at Function.handle (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:175:3)
+    at router (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:47:12)
+[2025-04-18T22:35:33.580Z] error: ReferenceError: path is not defined
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:50:24)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+[2025-04-18T22:36:58.256Z] error: ReferenceError: databaseImporter is not defined
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:141:44)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:51:27)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-18T22:38:13.249Z] error: Error: No schema defined for category: undefined
+    at createTable (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/utils/importer/src/databaseImporter.ts:184:11)
+    at processCategory (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/utils/importer/src/databaseImporter.ts:436:9)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:151:35)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:51:16)
+    at async importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:20)
+[2025-04-18T22:38:13.259Z] error: Error: Failed to import files for category "undefined"
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:169:13)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:51:16)
+    at async importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:20)
+[2025-04-18T22:44:27.746Z] error: ReferenceError: path is not defined
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:57:24)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+[2025-04-18T22:45:00.374Z] error: ReferenceError: __dirname is not defined
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:59:5)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+[2025-04-18T22:45:30.298Z] error: ReferenceError: __dirname is not defined
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:59:5)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+[2025-04-18T22:46:39.662Z] error: ReferenceError: fileURLToPath is not defined
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:56:22)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:284:15
+[2025-04-18T22:47:10.725Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:141:26)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-18T22:48:20.226Z] error: ReferenceError: fs is not defined
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:158:19)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)

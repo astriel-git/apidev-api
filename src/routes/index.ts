@@ -2,6 +2,7 @@ import { Router } from 'express';
 import userRoutes from '../modules/Users/routes/userRoutes.ts';
 import pacoteRoutes from '../modules/Pacotes/routes/pacoteRoutes.ts';
 import saldoRoutes from '../modules/Saldos/routes/saldoRoutes.ts';
+import utilRoutes from '../modules/Utilities/routes/utilsRoutes.ts';
 import libRoutes from '../modules/Utilities/routes/index.ts';
 
 const router = Router();
@@ -10,6 +11,8 @@ const router = Router();
 router.use('/users', userRoutes);
 router.use('/pacotes', pacoteRoutes);
 router.use('/saldos', saldoRoutes);
+router.use('/utilities', utilRoutes);
+
 router.use('/library', libRoutes);
 
 export default router;
