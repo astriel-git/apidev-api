@@ -828,3 +828,134 @@ Error querying the database: FATAL: the database system is starting up
     at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
     at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
     at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-22T17:29:17.373Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-22T17:29:21.654Z] error: Error: function Error() { [native code] }
+    at errorMiddleware (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/errors/errorMiddleware.ts:15:45)
+    at Layer.handle_error (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:71:5)
+    at trim_prefix (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:326:13)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:286:9
+    at Function.process_params (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:280:10)
+    at C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15
+    at Immediate.next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:265:14)
+    at Immediate._onImmediate (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\index.js:646:15)
+    at processImmediate (node:internal/timers:513:21)
+[2025-04-22T17:38:24.784Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:141:26)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-23T16:46:38.876Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:141:26)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-23T16:49:44.543Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:141:26)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:66:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-23T17:04:13.696Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:141:26)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:69:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-23T17:07:07.896Z] info: Starting importFiles with category="cnae", extractedDir="C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped"
+[2025-04-23T17:07:07.904Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:142:28)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-23T17:07:07.910Z] error: ReferenceError: client is not defined
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:181:9)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-23T17:07:07.916Z] error: TypeError: Cannot convert undefined or null to object
+    at Function.keys (<anonymous>)
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:142:28)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+[2025-04-23T17:09:33.714Z] info: Starting importFiles with category="cnae", extractedDir="C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped"
+[2025-04-23T17:09:33.718Z] error: ReferenceError: TABLE_SCHEMAS is not defined
+    at Object.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/data-access/utilsRepo.ts:142:5)
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:67:15)
+    at importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:38)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/core/middlewares/validateRequest.ts:17:7
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:149:13)
+    at Route.dispatch (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\route.js:119:3)
+    at Layer.handle [as handle_request] (C:\Users\lucas\Documents\PERSONAL\apidev-api\node_modules\express\lib\router\layer.js:95:5)
+[2025-04-23T17:22:59.672Z] error: FetchDatesError: Failed to import data for "cnae"
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:60:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:20)
+[2025-04-23T17:23:19.363Z] error: FetchDatesError: Failed to import data for "cnae"
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:60:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:20)
+[2025-04-23T17:26:55.276Z] error: ErrorID: cvqimolmtjh - EISDIR: illegal operation on a directory, read
+[2025-04-23T17:29:39.885Z] error: ErrorID: uv5h0941d8 - ENOENT: no such file or directory, open 'C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\Cnaes\F.K03200$Z.D50419.CNAECSV'
+[2025-04-23T17:32:33.327Z] error: ErrorID: d91cjf2x5b - ENOENT: no such file or directory, open 'C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\Cnaes\F.K03200$Z.D50419.CNAECSV'
+[2025-04-23T17:34:32.852Z] error: ErrorID: zowdsdr22m - ENOENT: no such file or directory, open 'C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\Cnaes\F.K03200$Z.D50419.CNAECSV'
+[2025-04-23T17:36:17.380Z] error: ErrorID: 92gv1txq144 - ENOENT: no such file or directory, open 'C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\C:\Users\lucas\Documents\PERSONAL\apidev-api\src\utils\unzipper\unzipped\Cnaes\F.K03200$Z.D50419.CNAECSV'
+[2025-04-23T17:38:10.433Z] error: FetchDatesError: Failed to import data for "cnae"
+    at Module.importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/services/utilsServices.ts:60:11)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async importFiles (file:///C:/Users/lucas/Documents/PERSONAL/apidev-api/src/modules/Utilities/controllers/utilsControllers.ts:65:20)
+[2025-04-23T17:38:26.336Z] error: ErrorID: dpgy5zr28o - EISDIR: illegal operation on a directory, read
+[2025-04-23T17:38:52.659Z] error: ErrorID: 87sgz0us5jg - EISDIR: illegal operation on a directory, read

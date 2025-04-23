@@ -49,22 +49,16 @@ export const unzipFiles = async (
 export const importFiles = async (
   body: UtilInterface.ImportFilesRequest
 ): Promise<UtilInterface.ImportFilesResponse> => {
-  const { category } = body;
-  if (!category?.value) {
-    throw new BadRequestError('Missing category');
+  const category = body.category.value;
+  try {
+    const result = await util.importFiles(category);
+    if (result.importedCount <= 0) {
+      throw new UpstreamServerFailure(`No records imported for "${category}"`);
+    }
+    return result;
+  } catch (err) {
+    throw new UpstreamServerFailure(`Failed to import data for "${category}"`);
   }
-
-  // Compute __dirname in ESM
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-
-  // Point at your unzipped folder
-  const extractedDir = path.resolve(
-    __dirname,
-    '../../../utils/unzipper/unzipped'
-  );
-
-  return util.importFiles(category.value, extractedDir);
 };
 
 

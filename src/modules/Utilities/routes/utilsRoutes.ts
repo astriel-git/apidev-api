@@ -12,6 +12,7 @@ router.post('/categories', validateRequest<UtilInterface.ParseCategoriesRequest>
 router.post('/download', validateRequest<UtilInterface.DownloadRequest>(utilsSchemas.validateDownloadSchema, 'body'), utilController.downloadCategoriesFiles);
 router.post('/unzip', validateRequest<UtilInterface.UnzipRequest>(utilsSchemas.validateUnzipSchema, 'body'), utilController.unzipFiles);
 
+
 router.post(
   '/import',
   validateRequest<UtilInterface.ImportFilesRequest>(

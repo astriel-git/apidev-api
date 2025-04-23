@@ -8,6 +8,7 @@ import type * as UtilInterface from '../types/utilsTypes.ts';
 import unzipFile from '../../../utils/unzipper/src/unzipper.ts';
 import downloader from '../../../utils/downloader/src/downloader.ts';
 import databaseImporter from '../../../utils/importer/src/databaseImporter.ts';
+import fs from 'fs';
 
 
 const baseUrl = 'https://arquivos.receitafederal.gov.br/cnpj/dados_abertos_cnpj/';
@@ -127,54 +128,65 @@ export const util = {
       logger.error(`unzipFiles failed for ${fileName}:`, err);
       throw new Error(`Failed to unzip file: ${fileName}`);
     }
-  },
+    },
 
-   /**
-   * Import all files for a given category,
-   * reading them out of the unzipper/unzipped folder.
-   */
-   async importFiles(
-    category: string,
-    extractedDir: string
+  /**
+     * Import all CSV files for a given category.
+     * Flattens sub-folders under unzipped/, then hands exact file names to processCategory.
+     */
+  async importFiles(
+    category: string
   ): Promise<UtilInterface.ImportFilesResponse> {
-    // validate your category against your importer’s known list:
-    const valid = Object.keys(databaseImporter.TABLE_SCHEMAS)
-    if (!valid.includes(category)) {
-      throw new BadRequestError(`Invalid category: "${category}"`)
+    const { connectDB, processCategory } = databaseImporter;
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
+    // Where unzipper dropped everything (possibly in subfolders)
+    const extractedDir = path.resolve(
+      __dirname,
+      '../../../utils/unzipper/unzipped'
+    );
+
+    // 1) get all category subfolders
+    const subfolders = fs
+      .readdirSync(extractedDir)
+      .filter(name => name.toLowerCase().includes(category.toLowerCase()));
+
+    if (subfolders.length === 0) {
+      throw new Error(`No unzipped directories found for "${category}"`);
     }
 
-    // read & filter filenames
-    const allFiles = fs.readdirSync(extractedDir)
-    const files = allFiles.filter(f =>
-      f.toLowerCase().includes(category.toLowerCase())
-    )
-    if (files.length === 0) {
-      throw new NotFoundError(`No files found for category "${category}"`)
-    }
-
-    // open & process
-    let client
-    try {
-      client = await connectDB()
-      const importResults = await processCategory(
-        client,
-        files,
-        category,
-        extractedDir
-      )
-      await client.end()
-      return { importResults }
-    } catch (err) {
-      logger.error(`importFiles failed for "${category}"`, err)
-      if (client) {
-        try { await client.end() } catch{
-          logger.error(`Failed to close DB connection:`, err)
+    // 2) flatten out actual file names relative to extractedDir
+    const filesToImport: string[] = [];
+    for (const folder of subfolders) {
+      const folderPath = path.join(extractedDir, folder);
+      const entries = fs.readdirSync(folderPath);
+      for (const entry of entries) {
+        const relative = path.join(folder, entry);
+        // sanity check
+        const abs = path.join(extractedDir, relative);
+        if (fs.existsSync(abs) && fs.statSync(abs).isFile()) {
+          filesToImport.push(relative);
         }
       }
-      throw err
+    }
+
+    if (filesToImport.length === 0) {
+      throw new Error(`No files found inside "${category}" folders`);
+    }
+
+    // 3) now call processCategory exactly like your original code
+    const client = await connectDB();
+    try {
+      await processCategory(client, filesToImport, category, extractedDir);
+      await client.end();
+      return { importedCount: filesToImport.length };
+    } catch (err) {
+      await client.end();
+      throw err;
     }
   }
-}
+};
 
 
 export default util;

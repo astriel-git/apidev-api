@@ -63,7 +63,13 @@ export const importFiles = async (
 ): Promise<void> => {
   try {
     const result = await utilService.importFiles(req.body);
-    res.status(200).json({ response: result, status: 'success', message: 'Files imported successfully!' });
+    res
+      .status(200)
+      .json({
+        response: result,
+        status: 'success',
+        message: `Data import for category "${req.body.category.value}" completed successfully!`
+      });
   } catch (error) {
     next(error);
   }
